@@ -11,143 +11,121 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function MyGame() {
-    // The camera to view the scene
+function MyGame()
+{
     this.mCamera = null;
 
     this.spriteSheet = "assets/terrain_tileset.png";
 
-    this.tileMap = new TileMap(-50, -50 / 1.33333333, 7.5, 15, 10);
+    this.tileMap = null;
     
-    gEngine.Textures.loadTexture(this.spriteSheet);
+    this.shapes = null;
     
-    this.stoneCoords = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
-    this.dirtCoords = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
-    this.grassCoords = [97 / 256, 127 /256, 32 / 128, 64 / 128];
-
+    this.shapeGen = null;
+    
+    this.stone = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
+    this.dirt = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
+    this.grass = [97 / 256, 127 /256, 32 / 128, 64 / 128];
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
-MyGame.prototype.initialize = function () {
-    // Step A: set up the cameras
+MyGame.prototype.initialize = function () 
+{
+    gEngine.Textures.loadTexture(this.spriteSheet);
+    
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
-        100,                       // width of camera
-        [0, 0, 640, 480]           // viewport (orgX, orgY, width, height)
+        100,                   // width of camera
+        [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
-            // sets the background to gray
-
-    /*
-    for(var i = 0; i < 10; i++)
-    {
-        for(var j = 0; j < 10; j++)
-        {
-            var test = new Renderable();
-            test.setColor([i/10, j/10, i/10, 1]);
-            
-            this.tileMap.addTile(i,j, test);
-        }
-    }
-    */
-   
-   //this.testRenderable = new TextureRenderable(this.spriteSheet);
-   
-   //this.grass = new SpriteRenderable(this.spriteSheet);
     
-    //this.grass.setElementUVCoordinate(this.grassCoords[0], this.grassCoords[1], this.grassCoords[2], this.grassCoords[3]);
-    //this.grass.setColor([0,0,0,1]);
+    this.tileMap = new TileMap(-50, -25, 5, 20, 10);
     
-    //console.log(this.grass);
+    this.shapes = new TileMap(-50, -25, 1, 100, 50);
     
-    //this.dirt = new SpriteRenderable(this.spriteSheet);
+    this.shapeGen = new ShapeGen(this.shapes);
     
-    //this.dirt.setElementUVCoordinate(96 / 256, 127 / 256, 65 / 128, 97 / 128);
-    //this.dirt.setColor([0,0,0,1]);
+    this.shapeGen.rectangle(20, 25, 15, 10, [1, 0, 0, 1]);
+    this.shapeGen.rectangle(22, 25, 3, 5, [0, 0, 1, 1]);
+    this.shapeGen.rectangle(24, 27, 1, 1, [0, 1, 0, 1]);
+    this.shapeGen.rectangle(28, 28, 5, 5, [0, 0, 1, 1]);
+    this.shapeGen.rectangle(30, 28, 1, 5, [1, 0, 0, 1]);
+    this.shapeGen.rectangle(28, 30, 5, 1, [1, 0, 0, 1]);
+    this.shapeGen.triangle(20, 35, 15, [0, 1, 0, 1]);
     
+    this.shapeGen.circle(74, 24, 24, [1, 0, 0, 1], false);
     
-    //this.stone = new SpriteRenderable(this.stoneCoords[0], this.stoneCoords[1], this.stoneCoords[2], this.stoneCoords[3]);
-    
-    //this.stone.setElementUVCoordinate(96 / 256, 127 / 256, 0 / 128, 31 / 128);
-    //this.stone.setColor([0,0,0,1]);
-
-
-
-
-   
-   //Stone layer
-   for(var i = 0; i < 15; i++)
-   {
-       for(var j = 0; j < 2; j++)
-       {
-            var stone = new SpriteRenderable(this.spriteSheet);
-            stone.setElementUVCoordinate(this.stoneCoords[0], this.stoneCoords[1], this.stoneCoords[2], this.stoneCoords[3]);
-            
-            this.tileMap.addTile(i, j, stone);
-       }
-   }
-   
-   //Dirt layer
-   for(var i = 0; i < 15; i++)
-   {
-       for(var j = 2; j < 5; j++)
-       {
-           var dirt = new SpriteRenderable(this.spriteSheet);
-            dirt.setElementUVCoordinate(this.dirtCoords[0], this.dirtCoords[1], this.dirtCoords[2], this.dirtCoords[3]);
-            
-            this.tileMap.addTile(i, j, dirt);
-       }
-   }
-    
-   
-   //Grass layer 
-   for(var i = 0; i < 15; i++)
-   {
-       for(var j = 5; j < 6; j++)
-       {
-           var grass = new SpriteRenderable(this.spriteSheet);
-           grass.setElementUVCoordinate(this.grassCoords[0], this.grassCoords[1], this.grassCoords[2], this.grassCoords[3]);
-            
-           this.tileMap.addTile(i, j, grass);
-       }
-   }
-   
-   
-   for(var i = 0; i < 15; i++)
-   {
-       for(var j = 0; j < 10; j++)
-       {
-           if(!this.tileMap.isTileAt(i,j))
-           {
-               var sky = new Renderable();
-               sky.setColor([0.5, 0.5, j/10, 1]);
-               
-               this.tileMap.addTile(i,j,sky);
-           }
-           
-       } 
-   }
-    
-    
-
+    this.basicTerrain();
 };
 
-// This is the draw function, make sure to setup proper drawing environment, and more
-// importantly, make sure to _NOT_ change any state.
-MyGame.prototype.draw = function () {
-    // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+MyGame.prototype.draw = function ()
+{
+    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
 
     this.mCamera.setupViewProjection();
 
     this.tileMap.draw(this.mCamera);
-    //this.testRenderable.draw(this.mCamera);
     
+    this.shapes.draw(this.mCamera);
 };
 
-// The Update function, updates the application state. Make sure to _NOT_ draw
-// anything from this function!
 MyGame.prototype.update = function ()
 {
    
+};
+
+// test functions
+MyGame.prototype.basicTerrain = function()
+{
+    //Stone layer
+    for(var i = 0; i < 20; i++)
+    {
+        for(var j = 0; j < 2; j++)
+        {
+            var renderable = new SpriteRenderable(this.spriteSheet);
+            renderable.setElementUVCoordinate(this.stone[0], this.stone[1], this.stone[2], this.stone[3]);
+           
+            this.tileMap.addTile(i, j, renderable);
+        }
+    }
+    
+    //Dirt layer
+    for(var i = 0; i < 20; i++)
+    {
+        for(var j = 2; j < 4; j++)
+        {
+            var renderable = new SpriteRenderable(this.spriteSheet);
+            renderable.setElementUVCoordinate(this.dirt[0], this.dirt[1], this.dirt[2], this.dirt[3]);
+           
+            this.tileMap.addTile(i, j, renderable);
+        }
+    }
+    
+    //Grass layer 
+    for(var i = 0; i < 20; i++)
+    {
+        for(var j = 4; j < 5; j++)
+        {
+            var renderable = new SpriteRenderable(this.spriteSheet);
+            renderable.setElementUVCoordinate(this.grass[0], this.grass[1], this.grass[2], this.grass[3]);
+           
+            this.tileMap.addTile(i, j, renderable);
+        }
+    }
+    
+    // sky layer
+    for(var i = 0; i < 20; i++)
+    {
+        for(var j = 0; j < 10; j++)
+        {
+            if(!this.tileMap.isTileAt(i,j))
+            {
+                var sky = new Renderable();
+                sky.setColor([0.5, 0.5, j/10, 1]);
+
+                this.tileMap.addTile(i,j,sky);
+            }
+        } 
+    }
 };

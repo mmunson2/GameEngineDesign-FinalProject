@@ -15,5 +15,12 @@
         <group name="BookChapters"/>
         <group name="AllBookProjects"/>
         <group name="Apress-2d-game-engine"/>
+        <group>
+            <file>file:/C:/Users/Camden/GitHub/GameEngineDesign-FinalProject/public_html/src/Engine/Renderables/Renderable.js</file>
+            <file>file:/C:/Users/Camden/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/TileMap.js</file>
+            <file>file:/C:/Users/Camden/GitHub/GameEngineDesign-FinalProject/public_html/src/Engine/Utils/Transform.js</file>
+            <file>file:/C:/Users/Camden/GitHub/GameEngineDesign-FinalProject/public_html/index.html</file>
+            <file>file:/C:/Users/Camden/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/MyGame.js</file>
+        </group>
     </open-files>
 </project-private>

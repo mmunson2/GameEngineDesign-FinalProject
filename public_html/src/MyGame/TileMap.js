@@ -1,14 +1,15 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * TileMap.js
+ * 
+ * Stores a uniform grid of renderables
+ * 
  */
-
 
 function TileMap(xPos, yPos, tileWidth, width, height)
 {
-    this.xPos = xPos + tileWidth / 2;
-    this.yPos = yPos + tileWidth / 2;
+    this.xPos = xPos;
+    this.yPos = yPos;
+    
     this.tileWidth = tileWidth;
     
     this.width = width;
@@ -16,40 +17,33 @@ function TileMap(xPos, yPos, tileWidth, width, height)
     
     this.tiles = [];
     
-    
     this.initialize();
-    
 }
-
 
 TileMap.prototype.initialize = function () 
 {
     for(var i = 0; i < this.width; i++)
     {
-        var col = [];
+        var column = [];
         
         for(var j = 0; j < this.height; j++)
         {
-            col[j] = 0;
+            column[j] = 0;
         }
         
-        this.tiles[i] = col;
+        this.tiles[i] = column;
     }
- 
 };
 
-TileMap.prototype.addTile = function(tileX, tileY, textureRenderable)
+TileMap.prototype.addTile = function(tileX, tileY, renderable)
 {
-    textureRenderable.getXform().setXPos(tileX * this.tileWidth + this.xPos);
-    textureRenderable.getXform().setYPos(tileY * this.tileWidth + this.yPos);
+    renderable.getXform().setXPos(tileX * this.tileWidth + this.xPos + this.tileWidth / 2);
+    renderable.getXform().setYPos(tileY * this.tileWidth + this.yPos + this.tileWidth / 2);
     
-    textureRenderable.getXform().setSize(this.tileWidth, this.tileWidth);
+    renderable.getXform().setSize(this.tileWidth, this.tileWidth);
     
-    this.tiles[tileX][tileY] = textureRenderable;  
-    
+    this.tiles[tileX][tileY] = renderable;
 };
-
-
 
 TileMap.prototype.draw = function (camera)
 {
@@ -70,9 +64,7 @@ TileMap.prototype.isTileAt = function (xPos, yPos)
     return (this.tiles[xPos][yPos] !== 0);
 };
 
-
 TileMap.prototype.update = function ()
 {
-    
     
 };
