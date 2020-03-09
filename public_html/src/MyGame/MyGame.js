@@ -21,9 +21,9 @@ function MyGame() {
     
     gEngine.Textures.loadTexture(this.spriteSheet);
     
-    this.stoneCoords = [96 / 256, 127 / 256, 0 / 128, 31 / 128];
-    this.dirtCoords = [96 / 256, 127 / 256, 65 / 128, 97 / 128];
-    this.grassCoords = [96 / 256, 127 /256, 32 / 128, 64 / 128];
+    this.stoneCoords = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
+    this.dirtCoords = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
+    this.grassCoords = [97 / 256, 127 /256, 32 / 128, 64 / 128];
 
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
