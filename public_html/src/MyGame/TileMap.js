@@ -7,8 +7,8 @@
 
 function TileMap(xPos, yPos, tileWidth, width, height)
 {
-    this.xPos = xPos;
-    this.yPos = yPos;
+    this.xPos = xPos + tileWidth / 2;
+    this.yPos = yPos + tileWidth / 2;
     this.tileWidth = tileWidth;
     
     this.width = width;
@@ -63,9 +63,13 @@ TileMap.prototype.draw = function (camera)
             }
         }
     }
-
-    
 };
+
+TileMap.prototype.isTileAt = function (xPos, yPos)
+{
+    return (this.tiles[xPos][yPos] !== 0);
+};
+
 
 TileMap.prototype.update = function ()
 {
