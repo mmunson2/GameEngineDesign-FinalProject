@@ -23,6 +23,9 @@ function MyGame()
     
     this.shapeGen = null;
     
+    this.cameraSpeed = 10;
+    this.boundedCamera = true;
+    
     this.stone = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
     this.dirt = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
     this.grass = [97 / 256, 127 /256, 32 / 128, 64 / 128];
@@ -40,7 +43,7 @@ MyGame.prototype.initialize = function ()
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
-    this.tileMap = new TileMap(-50, -25, 5, 20, 10);
+    this.tileMap = new TileMap(-50, -25, 10, 20, 10);
     
     this.shapes = new TileMap(-50, -25, 1, 100, 50);
     
@@ -72,7 +75,65 @@ MyGame.prototype.draw = function ()
 
 MyGame.prototype.update = function ()
 {
+   this.moveCamera();
+};
+
+MyGame.prototype.moveCamera = function ()
+{
+   var cameraX = this.mCamera.getWCCenter()[0];
+   var cameraY = this.mCamera.getWCCenter()[1];
+   var cameraHeight = this.mCamera.getWCHeight();
+   var cameraWidth = this.mCamera.getWCWidth();
+    
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W))
+   {
+       cameraY += this.cameraSpeed;
+   }
+   if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S))
+   {
+       cameraY -= this.cameraSpeed;
+   }
+   if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A))
+   {
+       cameraX -= this.cameraSpeed;
+   }
+   if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D))
+   {
+       cameraX += this.cameraSpeed;
+   }
    
+   if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))
+   {
+       console.log("Height: " + cameraHeight);
+       console.log("Width: " + cameraWidth);
+       
+       console.log("Tile Height: " + this.tileMap.getHeight());
+       console.log("Tile Width: " + this.tileMap.getWCWidth());
+   }
+   
+   if(this.boundedCamera)
+   {
+       if(cameraY + cameraHeight / 2 > this.tileMap.getYPos() + this.tileMap.getWCHeight())
+       {
+           cameraY = this.tileMap.getYPos() + this.tileMap.getWCHeight() - cameraHeight / 2;
+       }
+       if(cameraY - cameraHeight / 2 < this.tileMap.getYPos())
+       {
+           cameraY = this.tileMap.getYPos() + cameraHeight / 2;
+       }
+       if(cameraX + cameraWidth / 2 > this.tileMap.getXPos() + this.tileMap.getWCWidth())
+       {
+           cameraX = this.tileMap.getXPos() + this.tileMap.getWCWidth() - cameraWidth / 2;
+       }
+       if(cameraX - cameraWidth / 2 < this.tileMap.getXPos())
+       {
+           cameraX = this.tileMap.getXPos() + cameraWidth / 2;
+       }   
+   }
+   
+   
+   this.mCamera.setWCCenter(cameraX, cameraY);
+   this.mCamera.update(); 
 };
 
 // test functions

@@ -7,8 +7,8 @@
 
 function TileMap(xPos, yPos, tileWidth, width, height)
 {
-    this.xPos = xPos;
-    this.yPos = yPos;
+    this.xPos = xPos - tileWidth / 2;
+    this.yPos = yPos - tileWidth / 2;
     
     this.tileWidth = tileWidth;
     
@@ -19,6 +19,12 @@ function TileMap(xPos, yPos, tileWidth, width, height)
     
     this.initialize();
 }
+
+TileMap.prototype.getWCHeight = function () {return this.height * this.tileWidth;};
+TileMap.prototype.getWCWidth = function () {return this.width * this.tileWidth;};
+TileMap.prototype.getXPos = function () {return this.xPos;};
+TileMap.prototype.getYPos = function () {return this.yPos;};
+
 
 TileMap.prototype.initialize = function () 
 {
