@@ -33,23 +33,28 @@ function MyGame()
     this.grass = [97 / 256, 127 /256, 32 / 128, 64 / 128];
     
     this.background = new MountainBackground();
-    this.background.loadTextures();
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.initialize = function () 
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
+    this.background.loadTextures();
+    
     
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
         100,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
     
-    this.tileMap = new TileMap(-50, -25, 2, 300, 50);
+    this.background.setWidth(this.mCamera.getWCWidth());
+    this.background.setHeight(this.mCamera.getWCHeight());
     
+    
+    this.tileMap = new TileMap(-50, -25, 1, 300, 50);
+   
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     this.terrainGen.generateHills(6);
     
@@ -66,7 +71,7 @@ MyGame.prototype.initialize = function ()
     
     //this.basicTerrain();
     
-    this.background.loadTextures();
+    this.background.initialize();
     
     
 };
@@ -89,7 +94,7 @@ MyGame.prototype.draw = function ()
 
 MyGame.prototype.update = function ()
 {
-    this.background.update();
+    this.background.update(this.mCamera);
     
     this.moveCamera();
 };

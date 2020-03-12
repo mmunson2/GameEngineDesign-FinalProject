@@ -84,7 +84,7 @@ TileMap.prototype.draw = function (camera, xMin, xMax, yMin, yMax)
     }
     
     
-    /*
+    /* The old way, definite performance improvement!
     for(var i = 0; i < this.width; i++)
     {                
         for(var j = 0; j < this.height; j++)
@@ -97,9 +97,6 @@ TileMap.prototype.draw = function (camera, xMin, xMax, yMin, yMax)
     }
      */
      
-    
-    //console.log("Drew: " + (tileMaxX - tileMinX) * (tileMaxY - tileMinY));
-    //console.log("Drew: " + this.width * this.height);
 };
 
 TileMap.prototype.isTileAt = function (xPos, yPos)

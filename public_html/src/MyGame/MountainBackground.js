@@ -21,6 +21,13 @@ function MountainBackground(xPos, yPos, width, height)
     this.xPosition = 0;
 }
 
+MountainBackground.prototype.setXPos = function (xPos) {this.xPos = xPos;};
+MountainBackground.prototype.setYPos = function (yPos) {this.yPos = yPos;};
+MountainBackground.prototype.setPosition = function(xPos, yPos) {this.xPos = xPos; this.yPos = yPos;};
+MountainBackground.prototype.setWidth = function (width) {this.width = width;};
+MountainBackground.prototype.setHeight = function (height) {this.height = height;};
+
+
 MountainBackground.prototype.loadTextures = function ()
 {
     gEngine.Textures.loadTexture(this.bgTexture);
@@ -33,19 +40,67 @@ MountainBackground.prototype.loadTextures = function ()
 
 MountainBackground.prototype.initialize = function ()
 {
-    this.background = new SpriteRenderable(bgTexture);
-    
-    this.background.setElementPixelPositions(0, 1920, 0, 1024);
-       
+    this.background = new SpriteRenderable(this.bgTexture);
+    this.background.setElementUVCoordinate(0, 1919/2048, 0, 1);
     this.background.getXform().setPosition(0, 0);
-    this.background.getXform().setHeight(200 / 1.333333);
-    this.background.getXform().setWidth(200);
+    //Adding an offset so that lerp doesn't show
+    this.background.getXform().setHeight(100 / 2 + 5);
+    this.background.getXform().setWidth(100 + 5);
+    
+    
+    this.cloud = new SpriteRenderable(this.cloudTexture);
+    this.cloud.setElementUVCoordinate(0, 1919/2048, 0, 1); 
+    this.cloud.getXform().setPosition(0,16);
+    this.cloud.getXform().setHeight(100 / 2 + 5);
+    this.cloud.getXform().setWidth(100 + 5);
+    
+    
+    this.mountains1 = new SpriteRenderable(this.mountains1Texture);
+    this.mountains1.setElementUVCoordinate(0, 1919/2048, 0, 1);
+    this.mountains1.getXform().setPosition(0,16);
+    this.mountains1.getXform().setHeight(100 / 2 + 5);
+    this.mountains1.getXform().setWidth(200 / 2 + 5);
+    
+    this.mountains2 = new SpriteRenderable(this.mountains2Texture);
+    this.mountains2.setElementUVCoordinate(0, 1919/2048, 0, 1);
+    this.mountains2.getXform().setPosition(0,16);
+    this.mountains2.getXform().setHeight(100 / 2 + 5);
+    this.mountains2.getXform().setWidth(200 / 2 + 5);
+    
+    this.trees1 = new SpriteRenderable(this.trees1Texture);
+    this.trees1.setElementUVCoordinate(0, 1919/2048, 0, 1);
+    this.trees1.getXform().setPosition(0,13);
+    this.trees1.getXform().setHeight(100 / 2 + 5);
+    this.trees1.getXform().setWidth(200 / 2 + 5);
+    
+    this.trees2 = new SpriteRenderable(this.trees2Texture);
+    this.trees2.setElementUVCoordinate(0, 1919/2048, 0, 1);
+    this.trees2.getXform().setPosition(0,14);
+    this.trees2.getXform().setHeight(100 / 2 + 5);
+    this.trees2.getXform().setWidth(200 / 2 + 5);
+    
+    
+    
 };
 
 
 MountainBackground.prototype.draw = function ( camera )
 {
-    //this.background.draw(camera);
+    this.background.draw(camera);
+        
+    this._wrapTexture(camera, this.cloud);    
+        
+    this._wrapTexture(camera, this.mountains2);   
+    
+    this._wrapTexture(camera, this.mountains1);
+    
+    this._wrapTexture(camera, this.trees2);
+    
+    this._wrapTexture(camera, this.trees1);
+   
+    
+    
+    
     
     //this._wrapTexture(camera, this.mountain);
     
@@ -66,8 +121,8 @@ MountainBackground.prototype._wrapTexture = function (camera, renderable)
     var startX = renderable.getXform().getPosition()[0];
     var startY = renderable.getXform().getPosition()[1];
     
-    var worldLeftBound = -200 / 2;
-    var worldRightBound = 200 / 2;
+    var worldLeftBound = this.xPos - this.width / 2;
+    var worldRightBound = this.xPos + this.width / 2;
     
     var currentX = startX;
     
@@ -96,15 +151,22 @@ MountainBackground.prototype._wrapTexture = function (camera, renderable)
     renderable.getXform().setPosition(startX, startY);
 };
 
-MountainBackground.prototype.update = function ()
+MountainBackground.prototype.update = function (camera)
 {
-    //this.mountain.getXform().setPosition(-this.xPosition / 10 % 200, 0);
+    this.setPosition(camera.getWCCenter()[0], camera.getWCCenter()[1]);
     
-    //this.mountains.getXform().setPosition(-this.xPosition / 7 % 200, -30);
+    this.background.getXform().setXPos(this.xPos);
     
-    //this.trees1.getXform().setPosition(-this.xPosition / 4 % 200, -40);
+    this.mountains2.getXform().setXPos(this.xPos / 1.05);
     
-    //this.trees2.getXform().setPosition(-this.xPosition * 2 % 200, -24);
+    this.mountains1.getXform().setXPos(this.xPos / 1.08);
+    
+    this.cloud.getXform().setXPos(this.xPos / 1.04);
+    
+    this.trees1.getXform().setXPos(this.xPos / 1.18);
+    
+    this.trees2.getXform().setXPos(this.xPos / 1.12);
+
     
     this.xPosition++;
 };
