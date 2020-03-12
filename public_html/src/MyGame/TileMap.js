@@ -22,6 +22,8 @@ function TileMap(xPos, yPos, tileWidth, width, height)
 
 TileMap.prototype.getWCHeight = function () {return this.height * this.tileWidth;};
 TileMap.prototype.getWCWidth = function () {return this.width * this.tileWidth;};
+TileMap.prototype.getWidth = function () {return this.width;};
+TileMap.prototype.getHeight = function () {return this.height;};
 TileMap.prototype.getXPos = function () {return this.xPos;};
 TileMap.prototype.getYPos = function () {return this.yPos;};
 
@@ -69,6 +71,10 @@ TileMap.prototype.isTileAt = function (xPos, yPos)
 {
     return (this.tiles[xPos][yPos] !== 0);
 };
+
+
+
+
 
 TileMap.prototype.update = function ()
 {

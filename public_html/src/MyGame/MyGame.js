@@ -23,6 +23,8 @@ function MyGame()
     
     this.shapeGen = null;
     
+    this.terrainGen = null;
+    
     this.cameraSpeed = 10;
     this.boundedCamera = true;
     
@@ -43,23 +45,22 @@ MyGame.prototype.initialize = function ()
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
-    this.tileMap = new TileMap(-50, -25, 10, 20, 10);
+    this.tileMap = new TileMap(-50, -25, 5, 100, 50);
     
     this.shapes = new TileMap(-50, -25, 1, 100, 50);
     
     this.shapeGen = new ShapeGen(this.shapes);
     
-    this.shapeGen.rectangle(20, 25, 15, 10, [1, 0, 0, 1]);
-    this.shapeGen.rectangle(22, 25, 3, 5, [0, 0, 1, 1]);
-    this.shapeGen.rectangle(24, 27, 1, 1, [0, 1, 0, 1]);
-    this.shapeGen.rectangle(28, 28, 5, 5, [0, 0, 1, 1]);
-    this.shapeGen.rectangle(30, 28, 1, 5, [1, 0, 0, 1]);
-    this.shapeGen.rectangle(28, 30, 5, 1, [1, 0, 0, 1]);
-    this.shapeGen.triangle(20, 35, 15, [0, 1, 0, 1]);
+    this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
+    this.terrainGen.generateHills();
     
-    this.shapeGen.circle(74, 24, 24, [1, 0, 0, 1], false);
+    this.terrainGen.setTexture(0, 12, this.spriteSheet, this.stone);
+    this.terrainGen.setTexture(12, 20, this.spriteSheet, this.dirt);
     
-    this.basicTerrain();
+    
+    //this.basicTerrain();
+    
+    
 };
 
 MyGame.prototype.draw = function ()
