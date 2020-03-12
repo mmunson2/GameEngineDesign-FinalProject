@@ -53,10 +53,40 @@ TileMap.prototype.addTile = function(tileX, tileY, renderable)
     this.tiles[tileX][tileY] = renderable;
 };
 
-TileMap.prototype.draw = function (camera)
+TileMap.prototype.draw = function (camera, xMin, xMax, yMin, yMax)
 {
-    for(var i = 0; i < this.width; i++)
+    var tileMinX = xMin > this.xPos ? Math.floor(xMin / this.tileWidth) - 1 : 0;
+    var tileMaxX = xMax < this.xPos + this.getWCWidth() ? Math.ceil(xMax / this.tileWidth) + 1 : this.width;
+    
+    var tileMinY = yMin > this.yPos ? Math.ceil(yMin / this.tileWidth) - 1 : 0;
+    var tileMaxY = yMax < this.yPos + this.getWCHeight() ? Math.ceil(yMax / this.tileWidth) + 1 : this.width - 1;
+   
+   
+    for(var i = tileMinX; i < tileMaxX; i++)
     {        
+        if(i >= this.width || i < 0) //Remove this if you can fix my shitty algorithm lol
+        {
+            continue;
+        }
+        
+        for(var j = tileMinY; j < tileMaxY; j++)
+        {
+            if(j >= this.height || j < 0) //Remove this if you can fix my shitty algorithm lol
+            {
+                continue;
+            }
+            
+            if(this.tiles[i][j] !== 0)
+            {
+               this.tiles[i][j].draw(camera);
+            }
+        }
+    }
+    
+    
+    /*
+    for(var i = 0; i < this.width; i++)
+    {                
         for(var j = 0; j < this.height; j++)
         {
             if(this.tiles[i][j] !== 0)
@@ -65,6 +95,11 @@ TileMap.prototype.draw = function (camera)
             }
         }
     }
+     */
+     
+    
+    //console.log("Drew: " + (tileMaxX - tileMinX) * (tileMaxY - tileMinY));
+    //console.log("Drew: " + this.width * this.height);
 };
 
 TileMap.prototype.isTileAt = function (xPos, yPos)

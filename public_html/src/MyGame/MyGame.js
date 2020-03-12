@@ -31,6 +31,9 @@ function MyGame()
     this.stone = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
     this.dirt = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
     this.grass = [97 / 256, 127 /256, 32 / 128, 64 / 128];
+    
+    this.background = new MountainBackground();
+    this.background.loadTextures();
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
@@ -45,7 +48,7 @@ MyGame.prototype.initialize = function ()
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
-    this.tileMap = new TileMap(-50, -25, 1, 300, 50);
+    this.tileMap = new TileMap(-50, -25, 2, 300, 50);
     
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     this.terrainGen.generateHills(6);
@@ -63,6 +66,8 @@ MyGame.prototype.initialize = function ()
     
     //this.basicTerrain();
     
+    this.background.loadTextures();
+    
     
 };
 
@@ -71,13 +76,22 @@ MyGame.prototype.draw = function ()
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
 
     this.mCamera.setupViewProjection();
+    
+    this.background.draw(this.mCamera);
 
-    this.tileMap.draw(this.mCamera);
+    var cameraX = this.mCamera.getWCCenter()[0];
+    var cameraY = this.mCamera.getWCCenter()[1];
+    var cameraHeight = this.mCamera.getWCHeight();
+    var cameraWidth = this.mCamera.getWCWidth();
+
+    this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth, cameraY, cameraY + cameraHeight);
 };
 
 MyGame.prototype.update = function ()
 {
-   this.moveCamera();
+    this.background.update();
+    
+    this.moveCamera();
 };
 
 MyGame.prototype.moveCamera = function ()
