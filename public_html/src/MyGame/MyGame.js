@@ -45,17 +45,20 @@ MyGame.prototype.initialize = function ()
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
-    this.tileMap = new TileMap(-50, -25, 5, 100, 50);
-    
-    this.shapes = new TileMap(-50, -25, 1, 100, 50);
-    
-    this.shapeGen = new ShapeGen(this.shapes);
+    this.tileMap = new TileMap(-50, -25, 1, 300, 50);
     
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
-    this.terrainGen.generateHills();
+    this.terrainGen.generateHills(6);
     
-    this.terrainGen.setTexture(0, 12, this.spriteSheet, this.stone);
-    this.terrainGen.setTexture(12, 20, this.spriteSheet, this.dirt);
+    this.terrainGen.setTexture(0, 25, this.spriteSheet, this.stone);
+    //this.terrainGen.setTexture(12, 20, this.spriteSheet, this.dirt);
+    
+    for (var i = 0; i < 8; i++)
+    {
+        this.terrainGen.addTopTiles(this.spriteSheet, this.dirt);
+    }
+    
+    this.terrainGen.addTopTiles(this.spriteSheet, this.grass);
     
     
     //this.basicTerrain();
@@ -70,8 +73,6 @@ MyGame.prototype.draw = function ()
     this.mCamera.setupViewProjection();
 
     this.tileMap.draw(this.mCamera);
-    
-    this.shapes.draw(this.mCamera);
 };
 
 MyGame.prototype.update = function ()

@@ -64,35 +64,59 @@ ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
 
 ShapeGen.prototype.drawCircle = function (xc, yc, x, y, color)
 {
-    var renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc + x, yc + y, renderable);
+    if (xc + x >= 0 && yc + y >= 0 && xc + x < this.tileMap.getWidth() && yc + y < this.tileMap.getHeight())
+    {
+        var renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc + x, yc + y, renderable);
+    }
     
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc - x, yc + y, renderable);
-    
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc + x, yc - y, renderable);
-    
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc - x, yc - y, renderable);
-    
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc + y, yc + x, renderable);
-    
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc - y, yc + x, renderable);
-    
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc + y, yc - x, renderable);
-    
-    renderable = new Renderable();
-    renderable.setColor(color);
-    this.tileMap.addTile(xc - y, yc - x, renderable);
+    if (xc - x >= 0 && yc + y >= 0 && xc - x < this.tileMap.getWidth() && yc + y < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc - x, yc + y, renderable);
+    }
+
+    if (xc + x >= 0 && yc - y >= 0 && xc + x < this.tileMap.getWidth() && yc - y < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc + x, yc - y, renderable);
+    }
+
+    if (xc - x >= 0 && yc - y >= 0 && xc - x < this.tileMap.getWidth() && yc - y < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc - x, yc - y, renderable);
+    }
+
+    if (xc + y >= 0 && yc + x >= 0 && xc + y < this.tileMap.getWidth() && yc + x < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc + y, yc + x, renderable);
+    }
+
+    if (xc - y >= 0 && yc + x >= 0 && xc - y < this.tileMap.getWidth() && yc + x < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc - y, yc + x, renderable);
+    }
+
+    if (xc + y >= 0 && yc - x >= 0 && xc + y < this.tileMap.getWidth() && yc - x < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc + y, yc - x, renderable);
+    }
+
+    if (xc - y >= 0 && yc - x >= 0 && xc - y < this.tileMap.getWidth() && yc - x < this.tileMap.getHeight())
+    {
+        renderable = new Renderable();
+        renderable.setColor(color);
+        this.tileMap.addTile(xc - y, yc - x, renderable);
+    }
 };

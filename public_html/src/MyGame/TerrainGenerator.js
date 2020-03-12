@@ -14,13 +14,13 @@ function TerrainGenerator( tileMap, startX, endX )
 }
 
 
-TerrainGenerator.prototype.generateHills = function ()
+TerrainGenerator.prototype.generateHills = function (yLevel)
 {
-    this.shapeGen.rectangle(0,0, this.tileMap.getWidth(), 10,  [0.2, 1, 0.2, 1]);
+    this.shapeGen.rectangle(0,0, this.tileMap.getWidth(), yLevel + 2,  [0.2, 1, 0.2, 1]);
     
-    for(var i = this.startX + 5; i < this.endX - 5; i++)
+    for(var i = this.startX; i < this.endX; i++)
     {
-        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + 10, Math.round(Math.random()) * 5, [0.2, 1, 0.2, 1], true);
+        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
     }
 };
 
@@ -42,4 +42,21 @@ TerrainGenerator.prototype.setTexture = function ( startY, endY, texture, UVArra
     }
     
     
+};
+
+TerrainGenerator.prototype.addTopTiles = function (texture, UVArray)
+{
+    for (var x = 0; x < this.tileMap.getWidth(); x++)
+    {
+        for (var y = this.tileMap.getHeight() - 2; y >= 0; y--)
+        {
+            if (this.tileMap.isTileAt(x, y))
+            {
+                var renderable = new SpriteRenderable(texture);
+                renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
+                this.tileMap.addTile(x, y + 1, renderable);
+                break;
+            }
+        }
+    }
 };
