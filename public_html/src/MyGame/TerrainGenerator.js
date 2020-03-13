@@ -53,9 +53,7 @@ TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
 TerrainGenerator.prototype.generateHills = function (yLevel, frequency, scale, steepness)
 {
     //this.generateBumps(yLevel);
-    
-    var creatingHill = false;
-    var hillIndex = 0;
+
     var hillWidth = 0;
    
     

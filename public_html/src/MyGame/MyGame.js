@@ -62,7 +62,7 @@ MyGame.prototype.initialize = function ()
     
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
-        100,                   // width of camera
+        50,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
@@ -128,7 +128,7 @@ MyGame.prototype.draw = function ()
     var cameraHeight = this.mCamera.getWCHeight();
     var cameraWidth = this.mCamera.getWCWidth();
 
-    this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth, cameraY, cameraY + cameraHeight);
+    this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth * 1.5, cameraY, cameraY + cameraHeight * 1.5);
 };
 
 
