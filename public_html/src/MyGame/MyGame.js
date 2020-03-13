@@ -16,7 +16,18 @@ function MyGame()
 {
     this.mCamera = null;
 
+    // sprite sheet and uv coords of its constents
     this.spriteSheet = "assets/terrain_tileset.png";
+    this.stoneUV = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
+    this.dirtUV = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
+    this.darkDirtUV = [(97 + 32) / 256, (127 + 32) / 256, 65 / 128, 96 / 128];
+    this.darkStoneUV = [(97 + 32) / 256, (127 + 32) / 256, 0 / 128, 31 / 128];
+    this.grassUV = [97 / 256, 127 /256, 32 / 128, 64 / 128];
+    
+    this.stone = "assets/stone.png";
+    this.dirt = "assets/dirt.png";
+    this.grass = "assets/grass.png";
+    this.defaultUV = [0,1,0,1];
 
     this.tileMap = null;
     
@@ -31,13 +42,7 @@ function MyGame()
     
     this.xPos = 0;
     this.yPos = 0;
-    
-    this.stone = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
-    this.dirt = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
-    this.darkDirt = [(97 + 32) / 256, (127 + 32) / 256, 65 / 128, 96 / 128];
-    this.darkStone = [(97 + 32) / 256, (127 + 32) / 256, 0 / 128, 31 / 128];
-    this.grass = [97 / 256, 127 /256, 32 / 128, 64 / 128];
-    
+
     this.background = new MountainBackground();
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
@@ -48,9 +53,12 @@ gEngine.Core.inheritPrototype(MyGame, Scene);
  ********************************************************************************/
 MyGame.prototype.initialize = function () 
 {
-   gEngine.Textures.loadTexture(this.spriteSheet);
-    this.background.loadTextures();
+    gEngine.Textures.loadTexture(this.spriteSheet);
+    gEngine.Textures.loadTexture(this.stone);
+    gEngine.Textures.loadTexture(this.dirt);
+    gEngine.Textures.loadTexture(this.grass);
     
+    this.background.loadTextures();
     
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
@@ -63,24 +71,19 @@ MyGame.prototype.initialize = function ()
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
-    
-    this.tileMap = new TileMap(-50, -25, 3, 300, 300);
+    this.tileMap = new TileMap(-50, -25, 1, 300, 300);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     this.terrainGen.generateBumps(6);
     
-    this.terrainGen.setTexture(0, 25, this.spriteSheet, this.darkStone);
-    //this.terrainGen.setTexture(12, 20, this.spriteSheet, this.dirt);
-    
-    this.terrainGen.addTopTiles(this.spriteSheet, this.stone);
+    this.terrainGen.setTexture(0, 25, this.stone, this.defaultUV);
     
     for (var i = 0; i < 7; i++)
     {
-        this.terrainGen.addTopTiles(this.spriteSheet, this.stone);
+        this.terrainGen.addTopTiles(this.dirt, this.defaultUV);
     }
     
-    this.terrainGen.addTopTiles(this.spriteSheet, this.grass);
-    
+    this.terrainGen.addTopTiles(this.grass, this.defaultUV);
     
     //this.basicTerrain();
     
