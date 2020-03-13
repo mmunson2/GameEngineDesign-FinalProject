@@ -17,8 +17,6 @@ function MountainBackground(xPos, yPos, width, height)
     this.mountains2Texture = "assets/background/mountains2.png";
     this.trees1Texture = "assets/background/trees1.png";
     this.trees2Texture = "assets/background/trees2.png";
-   
-    this.xPosition = 0;
 }
 
 MountainBackground.prototype.setXPos = function (xPos) {this.xPos = xPos;};
@@ -151,22 +149,19 @@ MountainBackground.prototype._wrapTexture = function (camera, renderable)
     renderable.getXform().setPosition(startX, startY);
 };
 
-MountainBackground.prototype.update = function (camera)
+MountainBackground.prototype.update = function (xPos, yPos)
 {
-    this.setPosition(camera.getWCCenter()[0], camera.getWCCenter()[1]);
+    this.setPosition(xPos, yPos);
     
-    this.background.getXform().setXPos(this.xPos);
+    this.background.getXform().setPosition(this.xPos, this.yPos);
     
-    this.mountains2.getXform().setXPos(this.xPos / 1.05);
+    this.mountains2.getXform().setPosition(this.xPos / 1.05, this.yPos / 1.08 + 16);
     
-    this.mountains1.getXform().setXPos(this.xPos / 1.08);
+    this.mountains1.getXform().setPosition(this.xPos / 1.08, this.yPos / 1.2 + 16);
     
-    this.cloud.getXform().setXPos(this.xPos / 1.04);
+    this.cloud.getXform().setPosition(this.xPos / 1.04, this.yPos / 1.04 + 16);
     
-    this.trees1.getXform().setXPos(this.xPos / 1.18);
+    this.trees1.getXform().setPosition(this.xPos / 1.18, this.yPos / 2 + 13);
     
-    this.trees2.getXform().setXPos(this.xPos / 1.12);
-
-    
-    this.xPosition++;
+    this.trees2.getXform().setPosition(this.xPos / 1.12, this.yPos / 1.4 + 14);
 };
