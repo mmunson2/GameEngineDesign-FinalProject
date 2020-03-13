@@ -48,7 +48,7 @@ gEngine.Core.inheritPrototype(MyGame, Scene);
  ********************************************************************************/
 MyGame.prototype.initialize = function () 
 {
-   cgEngine.Textures.loadTexture(this.spriteSheet);
+   gEngine.Textures.loadTexture(this.spriteSheet);
     this.background.loadTextures();
     
     
