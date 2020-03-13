@@ -30,6 +30,7 @@ function MyGame()
     
     this.stone = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
     this.dirt = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
+    this.darkDirt = [(97 + 32) / 256, (127 + 32) / 256, 65 / 128, 96 / 128];
     this.grass = [97 / 256, 127 /256, 32 / 128, 64 / 128];
     
     this.background = new MountainBackground();
@@ -61,7 +62,9 @@ MyGame.prototype.initialize = function ()
     this.terrainGen.setTexture(0, 25, this.spriteSheet, this.stone);
     //this.terrainGen.setTexture(12, 20, this.spriteSheet, this.dirt);
     
-    for (var i = 0; i < 8; i++)
+    this.terrainGen.addTopTiles(this.spriteSheet, this.darkDirt);
+    
+    for (var i = 0; i < 7; i++)
     {
         this.terrainGen.addTopTiles(this.spriteSheet, this.dirt);
     }
