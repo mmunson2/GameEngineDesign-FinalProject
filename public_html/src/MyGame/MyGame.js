@@ -129,12 +129,8 @@ MyGame.prototype.draw = function ()
     
     this.background.draw(this.mCamera);
 
-    var cameraX = this.mCamera.getWCCenter()[0];
-    var cameraY = this.mCamera.getWCCenter()[1];
-    var cameraHeight = this.mCamera.getWCHeight();
-    var cameraWidth = this.mCamera.getWCWidth();
-
-    this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth * 1.5, cameraY, cameraY + cameraHeight * 1.5);
+ 
+    this.tileMap.draw(this.mCamera);
 };
 
 

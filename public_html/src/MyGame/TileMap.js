@@ -67,13 +67,39 @@ TileMap.prototype.addTile = function(tileX, tileY, renderable)
  * 
  * 
  ********************************************************************************/
-TileMap.prototype.draw = function (camera, xMin, xMax, yMin, yMax)
+TileMap.prototype.draw = function (camera)
 {
+    var cameraX = camera.getWCCenter()[0];
+    var cameraY = camera.getWCCenter()[1];
+    var cameraHeight = camera.getWCHeight();
+    var cameraWidth = camera.getWCWidth();
+    
+    /*
+    var xMin = cameraX - cameraWidth / 2;
+    var xMax = cameraX + cameraWidth / 2;
+    var yMax = cameraY + cameraHeight / 2;
+    var yMin = cameraY - cameraHeight / 2;
+    */
+   
+   var xMin = cameraX - cameraWidth;
+    var xMax = cameraX + cameraWidth;
+    var yMax = cameraY + cameraHeight;
+    var yMin = cameraY - cameraHeight;
+    
+    
+    /*
     var tileMinX = xMin > this.xPos ? Math.floor(xMin / this.tileWidth) - 1 : 0;
-    var tileMaxX = xMax < this.xPos + this.getWCWidth() ? Math.ceil(xMax / this.tileWidth) + 1 : this.width;
+    var tileMaxX = xMax < this.xPos + this.getWCWidth ? Math.ceil(xMax / this.tileWidth) + 1 : this.width;
     
     var tileMinY = yMin > this.yPos ? Math.ceil(yMin / this.tileWidth) - 1 : 0;
     var tileMaxY = yMax < this.yPos + this.getWCHeight() ? Math.ceil(yMax / this.tileWidth) + 1 : this.width - 1;
+   */
+   
+    var tileMinX = Math.floor(xMin / this.tileWidth) - 1;
+    var tileMaxX = Math.ceil(xMax / this.tileWidth) + 1;
+    
+    var tileMinY = Math.ceil(yMin / this.tileWidth) - 1;
+    var tileMaxY = Math.ceil(yMax / this.tileWidth) + 1;
    
    
     for(var i = tileMinX; i < tileMaxX; i++)
