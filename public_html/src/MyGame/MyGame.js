@@ -66,7 +66,7 @@ MyGame.prototype.initialize = function ()
     
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
-        50,                   // width of camera
+        100,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
@@ -75,7 +75,7 @@ MyGame.prototype.initialize = function ()
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
-    this.tileMap = new TileMap(-50, -25, 1, 300, 300);
+    this.tileMap = new TileMap(-50, -25, 2, 300, 300);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
