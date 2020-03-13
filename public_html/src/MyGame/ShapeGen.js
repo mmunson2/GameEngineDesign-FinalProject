@@ -35,6 +35,21 @@ ShapeGen.prototype.rectangle = function (x, y, height, width, color)
     }
 };
 
+ShapeGen.prototype.rectangleTexture = function (x, y, height, width, texture, color, UVArray)
+{
+    for(var i = 0; i < width; i++)
+    {
+        for(var j = 0; j < height; j++)
+        {
+            var renderable = new SpriteRenderable(texture);
+            renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
+            renderable.setColor(color);
+           
+            this.tileMap.addTile(x + i, y + j, renderable);
+        }
+    }
+};
+
 /******************************************************************************** 
  * Triangle
  * 
