@@ -32,13 +32,61 @@ function TerrainGenerator( tileMap, startX, endX )
  ********************************************************************************/
 TerrainGenerator.prototype.generateBumps = function (yLevel)
 {
-    this.shapeGen.rectangle(0,0, this.tileMap.getWidth(), yLevel + 2,  [0.2, 1, 0.2, 1]);
+    this._generateBumps(this.startX, this.endX, yLevel);
+};
+
+TerrainGenerator.prototype.generateFlat = function (height)
+{
+    this.shapeGen.rectangle(0,0, height, this.tileMap.getWidth(), [0.2, 1, 0.2, 1]);
+};
+
+
+TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
+{    
+    for(var i = startX; i < endX; i++)
+    {
+        //this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
+        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, 5, [0.2, 1, 0.2, 1], true);
+    }
+};
+
+TerrainGenerator.prototype.generateHills = function (yLevel, frequency, scale, steepness)
+{
+    //this.generateBumps(yLevel);
+    
+    var creatingHill = false;
+    var hillIndex = 0;
+    var hillWidth = 0;
+   
     
     for(var i = this.startX; i < this.endX; i++)
     {
-        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
+        //If we're not currently making a hill, do a randomized check to see if we should start one
+        
+        //If we're making a hill, check the hillIndex and see where we're at in the hill
+            //At width / 2, the height should be approaching yMax
+            //Everywhere else should be a percentage of that
+            
+        if(Math.random() < frequency)
+        {
+            hillWidth = Math.random() * (scale + 2) - 4;
+            
+            for(var j = yLevel; j < scale; j++)
+            {
+                this._generateBumps(i + Math.floor(j / steepness), (i + hillWidth) - Math.floor(j / steepness), j);
+            }
+        }
     }
-};
+    
+    
+    
+    
+}
+
+
+
+
+
 
 /******************************************************************************** 
  * setTexture

@@ -23,9 +23,9 @@ function ShapeGen(tileMap)
  ********************************************************************************/
 ShapeGen.prototype.rectangle = function (x, y, height, width, color)
 {
-    for(var i = 0; i < height; i++)
+    for(var i = 0; i < width; i++)
     {
-        for(var j = 0; j < width; j++)
+        for(var j = 0; j < height; j++)
         {
             var renderable = new Renderable();
             renderable.setColor(color);

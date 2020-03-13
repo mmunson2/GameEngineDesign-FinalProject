@@ -74,9 +74,13 @@ MyGame.prototype.initialize = function ()
     this.tileMap = new TileMap(-50, -25, 1, 300, 300);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
-    this.terrainGen.generateBumps(6);
     
-    this.terrainGen.setTexture(0, 25, this.stone, this.defaultUV);
+    this.terrainGen.generateFlat(6);
+    this.terrainGen.generateBumps(4);
+    
+    this.terrainGen.generateHills(6, 0.01, 120, 2);
+    
+    this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
     
     for (var i = 0; i < 7; i++)
     {
