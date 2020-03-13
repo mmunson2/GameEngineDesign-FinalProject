@@ -27,8 +27,6 @@ function MyGame()
     this.stone = "assets/stone.png";
     this.dirt = "assets/dirt.png";
     this.grass = "assets/grass.png";
-    this.wood = "assets/wood.png";
-    this.leaves = "assets/leaves.png";
     this.defaultUV = [0,1,0,1];
 
     this.tileMap = null;
@@ -59,14 +57,12 @@ MyGame.prototype.initialize = function ()
     gEngine.Textures.loadTexture(this.stone);
     gEngine.Textures.loadTexture(this.dirt);
     gEngine.Textures.loadTexture(this.grass);
-    gEngine.Textures.loadTexture(this.wood);
-    gEngine.Textures.loadTexture(this.leaves);
     
     this.background.loadTextures();
     
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
-        50,                   // width of camera
+        100,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
@@ -75,16 +71,13 @@ MyGame.prototype.initialize = function ()
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
+    
     this.tileMap = new TileMap(-50, -25, 1, 300, 300);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
+    this.terrainGen.generateBumps(6);
     
-    this.terrainGen.generateFlat(6);
-    this.terrainGen.generateBumps(4);
-    
-    this.terrainGen.generateHills(6, 0.01, 120, 2);
-    
-    this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
+    this.terrainGen.setTexture(0, 25, this.stone, this.defaultUV);
     
     for (var i = 0; i < 7; i++)
     {
@@ -93,29 +86,11 @@ MyGame.prototype.initialize = function ()
     
     this.terrainGen.addTopTiles(this.grass, this.defaultUV);
     
-    this.terrainGen.generateTrees(5, 15, 0.05, this.wood, this.leaves);
-    
     //this.basicTerrain();
     
     this.background.initialize();
     
-    
 };
-
-
-MyGame.prototype.loadScene = function () 
-{
-    
-};
-
-MyGame.prototype.unloadScene = function ()
-{
-    
-    
-};
-
-
-
 
 
 /******************************************************************************** 
@@ -134,7 +109,7 @@ MyGame.prototype.draw = function ()
     var cameraHeight = this.mCamera.getWCHeight();
     var cameraWidth = this.mCamera.getWCWidth();
 
-    this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth * 1.5, cameraY, cameraY + cameraHeight * 1.5);
+    this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth, cameraY, cameraY + cameraHeight);
 };
 
 
@@ -146,11 +121,6 @@ MyGame.prototype.update = function ()
     this.background.update(this.xPos, this.yPos);
     
     this.moveCamera();
-    
-        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z))
-    {
-        
-    }
 };
 
 
