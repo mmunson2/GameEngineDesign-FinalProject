@@ -49,6 +49,22 @@ MountainBackground.prototype.loadTextures = function ()
 
 
 /******************************************************************************** 
+ * UnloadTextures
+ * 
+ ********************************************************************************/
+MountainBackground.prototype.unloadTextures = function ()
+{
+    gEngine.Textures.unloadTexture(this.bgTexture);
+    gEngine.Textures.unloadTexture(this.cloudTexture);
+    gEngine.Textures.unloadTexture(this.mountains1Texture);
+    gEngine.Textures.unloadTexture(this.mountains2Texture);
+    gEngine.Textures.unloadTexture(this.trees1Texture);
+    gEngine.Textures.unloadTexture(this.trees2Texture);
+}
+
+
+
+/******************************************************************************** 
  * Initialize
  * 
  ********************************************************************************/
