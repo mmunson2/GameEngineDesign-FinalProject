@@ -1,16 +1,17 @@
-/*
- * File: MyGame.js 
- * This is the logic of our game. 
- */
-
-/*jslint node: true, vars: true */
-/*global gEngine, Scene, GameObjectset, TextureObject, Camera, vec2,
-  FontRenderable, SpriteRenderable, LineRenderable,
-  GameObject */
-/* find out more about jslint: http://www.jslint.com/help.html */
+/******************************************************************************** 
+ * MyGame.js
+ * 
+ * The 'main' class, serves as the first demonstration of the terrain generator's
+ * abilities. 
+ * 
+ ********************************************************************************/
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
+
+/******************************************************************************** 
+ * MyGame Constructor
+ ********************************************************************************/
 function MyGame()
 {
     this.mCamera = null;
@@ -41,6 +42,10 @@ function MyGame()
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
+
+/******************************************************************************** 
+ * initialize 
+ ********************************************************************************/
 MyGame.prototype.initialize = function () 
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
@@ -62,7 +67,7 @@ MyGame.prototype.initialize = function ()
     this.tileMap = new TileMap(-50, -25, 3, 300, 300);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
-    this.terrainGen.generateHills(6);
+    this.terrainGen.generateBumps(6);
     
     this.terrainGen.setTexture(0, 25, this.spriteSheet, this.darkStone);
     //this.terrainGen.setTexture(12, 20, this.spriteSheet, this.dirt);
@@ -84,6 +89,10 @@ MyGame.prototype.initialize = function ()
     
 };
 
+
+/******************************************************************************** 
+ * draw
+ ********************************************************************************/
 MyGame.prototype.draw = function ()
 {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
@@ -100,6 +109,10 @@ MyGame.prototype.draw = function ()
     this.tileMap.draw(this.mCamera, cameraX, cameraX + cameraWidth, cameraY, cameraY + cameraHeight);
 };
 
+
+/******************************************************************************** 
+ * update
+ ********************************************************************************/
 MyGame.prototype.update = function ()
 {
     this.background.update(this.xPos, this.yPos);
@@ -107,6 +120,10 @@ MyGame.prototype.update = function ()
     this.moveCamera();
 };
 
+
+/******************************************************************************** 
+ * moveCamera
+ ********************************************************************************/
 MyGame.prototype.moveCamera = function ()
 {
    var cameraX = this.mCamera.getWCCenter()[0];
@@ -167,7 +184,11 @@ MyGame.prototype.moveCamera = function ()
    this.mCamera.update(); 
 };
 
-// test functions
+/******************************************************************************** 
+ * basicTerrain
+ * 
+ * Test function that creates flat terrain
+ ********************************************************************************/
 MyGame.prototype.basicTerrain = function()
 {
     //Stone layer

@@ -1,9 +1,16 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/******************************************************************************** 
+ * MountainBackground.js
+ * 
+ * A parallax background containing mountains and trees
+ * 
+ * Art credit: PWL from OpenGameArt.org
+ * 
+ ********************************************************************************/
 
+/******************************************************************************** 
+ * MountainBackground Constructor 
+ * 
+ ********************************************************************************/
 function MountainBackground(xPos, yPos, width, height)
 { 
     this.xPos = xPos;
@@ -26,6 +33,10 @@ MountainBackground.prototype.setWidth = function (width) {this.width = width;};
 MountainBackground.prototype.setHeight = function (height) {this.height = height;};
 
 
+/******************************************************************************** 
+ * LoadTextures
+ * 
+ ********************************************************************************/
 MountainBackground.prototype.loadTextures = function ()
 {
     gEngine.Textures.loadTexture(this.bgTexture);
@@ -36,6 +47,11 @@ MountainBackground.prototype.loadTextures = function ()
     gEngine.Textures.loadTexture(this.trees2Texture); 
 };
 
+
+/******************************************************************************** 
+ * Initialize
+ * 
+ ********************************************************************************/
 MountainBackground.prototype.initialize = function ()
 {
     this.background = new SpriteRenderable(this.bgTexture);
@@ -82,6 +98,10 @@ MountainBackground.prototype.initialize = function ()
 };
 
 
+/******************************************************************************** 
+ * Draw
+ * 
+ ********************************************************************************/
 MountainBackground.prototype.draw = function ( camera )
 {
     this.background.draw(camera);
@@ -109,6 +129,10 @@ MountainBackground.prototype.draw = function ( camera )
     //this._wrapTexture(camera, this.trees2);
 };
 
+/******************************************************************************** 
+ * _wrapTexture
+ * 
+ ********************************************************************************/
 MountainBackground.prototype._wrapTexture = function (camera, renderable)
 {
     renderable.draw(camera);
@@ -149,6 +173,10 @@ MountainBackground.prototype._wrapTexture = function (camera, renderable)
     renderable.getXform().setPosition(startX, startY);
 };
 
+/******************************************************************************** 
+ * update
+ * 
+ ********************************************************************************/
 MountainBackground.prototype.update = function (xPos, yPos)
 {
     this.setPosition(xPos, yPos);

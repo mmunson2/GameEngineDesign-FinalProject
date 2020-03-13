@@ -1,9 +1,20 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/******************************************************************************** 
+ * TerrainGenerator.js
+ * 
+ * The primary class within our API. Provides numerous functions for the
+ * creation of realistic terrain. Utilizes ShapeGen for lower level functions.
+ * 
+ ********************************************************************************/
 
+
+/******************************************************************************** 
+ * TerrainGenerator Constructor
+ * 
+ * @param {TileMap} tileMap | The tilemap to generate onto
+ * @param {Integer} startX  | The X Position on the tilemap where generation begins
+ * @param {Integer} endX    | The X Position on the tilemap where generation ends
+ * 
+ ********************************************************************************/
 function TerrainGenerator( tileMap, startX, endX )
 {
     this.tileMap = tileMap;
@@ -13,8 +24,13 @@ function TerrainGenerator( tileMap, startX, endX )
     this.shapeGen = new ShapeGen(this.tileMap);
 }
 
-
-TerrainGenerator.prototype.generateHills = function (yLevel)
+/******************************************************************************** 
+ * generateBumps
+ * 
+ * 
+ * 
+ ********************************************************************************/
+TerrainGenerator.prototype.generateBumps = function (yLevel)
 {
     this.shapeGen.rectangle(0,0, this.tileMap.getWidth(), yLevel + 2,  [0.2, 1, 0.2, 1]);
     
@@ -24,6 +40,10 @@ TerrainGenerator.prototype.generateHills = function (yLevel)
     }
 };
 
+/******************************************************************************** 
+ * setTexture
+ * 
+ ********************************************************************************/
 TerrainGenerator.prototype.setTexture = function ( startY, endY, texture, UVArray )
 {
     for(var i = this.startX; i < this.endX; i++)
@@ -44,6 +64,10 @@ TerrainGenerator.prototype.setTexture = function ( startY, endY, texture, UVArra
     
 };
 
+/******************************************************************************** 
+ * addTopTiles
+ * 
+ ********************************************************************************/
 TerrainGenerator.prototype.addTopTiles = function (texture, UVArray)
 {
     for (var x = 0; x < this.tileMap.getWidth(); x++)

@@ -1,10 +1,14 @@
-/* 
- * TileMap.js
+/******************************************************************************** 
  * 
- * Stores a uniform grid of renderables
  * 
- */
+ ********************************************************************************/
 
+
+
+/******************************************************************************** 
+ * 
+ * 
+ ********************************************************************************/
 function TileMap(xPos, yPos, tileWidth, width, height)
 {
     this.xPos = xPos - tileWidth / 2;
@@ -43,6 +47,11 @@ TileMap.prototype.initialize = function ()
     }
 };
 
+
+/******************************************************************************** 
+ * 
+ * 
+ ********************************************************************************/
 TileMap.prototype.addTile = function(tileX, tileY, renderable)
 {
     renderable.getXform().setXPos(tileX * this.tileWidth + this.xPos + this.tileWidth / 2);
@@ -53,6 +62,11 @@ TileMap.prototype.addTile = function(tileX, tileY, renderable)
     this.tiles[tileX][tileY] = renderable;
 };
 
+
+/******************************************************************************** 
+ * 
+ * 
+ ********************************************************************************/
 TileMap.prototype.draw = function (camera, xMin, xMax, yMin, yMax)
 {
     var tileMinX = xMin > this.xPos ? Math.floor(xMin / this.tileWidth) - 1 : 0;
@@ -99,6 +113,11 @@ TileMap.prototype.draw = function (camera, xMin, xMax, yMin, yMax)
      
 };
 
+
+/******************************************************************************** 
+ * 
+ * 
+ ********************************************************************************/
 TileMap.prototype.isTileAt = function (xPos, yPos)
 {
     return (this.tiles[xPos][yPos] !== 0);
@@ -107,7 +126,10 @@ TileMap.prototype.isTileAt = function (xPos, yPos)
 
 
 
-
+/******************************************************************************** 
+ * 
+ * 
+ ********************************************************************************/
 TileMap.prototype.update = function ()
 {
     

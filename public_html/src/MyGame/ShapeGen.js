@@ -1,15 +1,26 @@
-/* 
- * TerrainGen.js
+/********************************************************************************      
+ * ShapeGen.js
  * 
- * Adds tiles to the tile map in many ways
+ * A class with helpful functions for creating shapes on a tilemap.
  * 
- */
+ ********************************************************************************/
 
+
+/********************************************************************************      
+ * ShapeGen Constructor
+ * 
+ * @param {TileMap} tileMap | The tilemap to generate shape onto 
+ * 
+ ********************************************************************************/
 function ShapeGen(tileMap)
 {
     this.tileMap = tileMap;
 }
 
+/******************************************************************************** 
+ * Rectangle
+ * 
+ ********************************************************************************/
 ShapeGen.prototype.rectangle = function (x, y, height, width, color)
 {
     for(var i = 0; i < height; i++)
@@ -24,6 +35,10 @@ ShapeGen.prototype.rectangle = function (x, y, height, width, color)
     }
 };
 
+/******************************************************************************** 
+ * Triangle
+ * 
+ ********************************************************************************/
 ShapeGen.prototype.triangle = function (x, y, width, color)
 {
     for(var i = 0; i < width; i++)
@@ -40,7 +55,12 @@ ShapeGen.prototype.triangle = function (x, y, width, color)
 
 
 
-// Bresenham’s circle drawing algorithm
+/******************************************************************************** 
+ * Circle
+ * 
+ * 
+ * Bresenham’s circle drawing algorithm
+ ********************************************************************************/
 ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
 {
     var x = 0;
@@ -62,6 +82,12 @@ ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
     if (fill && r > 0) this.circle(xc, yc, r - 1, color, fill);
 };
 
+
+/******************************************************************************** 
+ * drawCircle
+ * 
+ * 
+ ********************************************************************************/
 ShapeGen.prototype.drawCircle = function (xc, yc, x, y, color)
 {
     if (xc + x >= 0 && yc + y >= 0 && xc + x < this.tileMap.getWidth() && yc + y < this.tileMap.getHeight())
