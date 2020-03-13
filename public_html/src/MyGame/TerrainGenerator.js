@@ -53,7 +53,7 @@ TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
 TerrainGenerator.prototype.generateHills = function (yLevel, frequency, scale, steepness)
 {
     //this.generateBumps(yLevel);
-   
+
     var hillWidth = 0;
    
     
@@ -125,40 +125,6 @@ TerrainGenerator.prototype.addTopTiles = function (texture, UVArray)
                 var renderable = new SpriteRenderable(texture);
                 renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
                 this.tileMap.addTile(x, y + 1, renderable);
-                break;
-            }
-        }
-    }
-};
-
-
-TerrainGenerator.prototype.addTree = function (x, y, height, wood, leaves)
-{
-    if (y + height > this.tileMap.getHeight()) return;
-    
-    for (var i = y; i < y + height - 2; i++)
-    {
-        var renderable = new SpriteRenderable(wood);
-        renderable.setElementUVCoordinate(0, 1, 0, 1);
-        this.tileMap.addTile(x, i, renderable);
-    }
-    
-    this.shapeGen.rectangleTexture(x - 1, y + height - 2, 3, 3, leaves, [0.42, 0.67, 0.26, 0.8], [0,1,0,1]);
-};
-
-TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequency, wood, leaves)
-{
-    for (var x = this.startX + 1; x < this.endX - 1; x++)
-    {
-        for (var y = this.tileMap.getHeight() - 2; y >= 0; y--)
-        {
-            if (this.tileMap.isTileAt(x, y))
-            {
-                if (Math.random() < frequency)
-                {
-                    this.addTree(x, y, Math.round(Math.random() * (maxHeight - minHeight)) + minHeight, wood, leaves);
-                    x ++;
-                }
                 break;
             }
         }
