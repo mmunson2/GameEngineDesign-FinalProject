@@ -79,14 +79,6 @@ TileMap.prototype.draw = function (camera)
     var yMax = cameraY + (cameraHeight / 2);
     var yMin = cameraY - (cameraHeight / 2);
     
-    /*
-    var tileMinX = xMin > this.xPos ? Math.floor(xMin / this.tileWidth) - 1 : 0;
-    var tileMaxX = xMax < this.xPos + this.getWCWidth ? Math.ceil(xMax / this.tileWidth) + 1 : this.width;
-    
-    var tileMinY = yMin > this.yPos ? Math.ceil(yMin / this.tileWidth) - 1 : 0;
-    var tileMaxY = yMax < this.yPos + this.getWCHeight() ? Math.ceil(yMax / this.tileWidth) + 1 : this.width - 1;
-   */
-    
     var tileMinX = Math.floor((xMin - this.xPos) / this.tileWidth) - 1;
     var tileMaxX = Math.ceil((xMax - this.xPos) / this.tileWidth) + 1;
 
@@ -126,8 +118,8 @@ TileMap.prototype.draw = function (camera)
                this.tiles[i][j].draw(camera);
             }
         }
-    }
-     */
+    }*/
+     
      
 };
 
