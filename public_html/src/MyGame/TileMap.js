@@ -7,8 +7,6 @@
  * 
  ********************************************************************************/
 
-
-
 /******************************************************************************** 
  * TileMap Constructor
  * 
@@ -44,7 +42,6 @@ TileMap.prototype.getHeight = function () {return this.height;};
 TileMap.prototype.getXPos = function () {return this.xPos;};
 TileMap.prototype.getYPos = function () {return this.yPos;};
 
-
 /******************************************************************************** 
  * Initialize
  * 
@@ -67,7 +64,6 @@ TileMap.prototype.initialize = function ()
     }
 };
 
-
 /******************************************************************************** 
  * addTile
  * 
@@ -80,14 +76,41 @@ TileMap.prototype.initialize = function ()
  ********************************************************************************/
 TileMap.prototype.addTile = function(tileX, tileY, renderable)
 {
-    renderable.getXform().setXPos(tileX * this.tileWidth + this.xPos + this.tileWidth / 2);
-    renderable.getXform().setYPos(tileY * this.tileWidth + this.yPos + this.tileWidth / 2);
+    if(tileX >= 0 && tileX < this.width && tileY >= 0 && tileY < this.height)
+    {
+        renderable.getXform().setXPos(tileX * this.tileWidth + this.xPos + this.tileWidth / 2);
+        renderable.getXform().setYPos(tileY * this.tileWidth + this.yPos + this.tileWidth / 2);
     
-    renderable.getXform().setSize(this.tileWidth, this.tileWidth);
+        renderable.getXform().setSize(this.tileWidth, this.tileWidth);
     
-    this.tiles[tileX][tileY] = renderable;
+        this.tiles[tileX][tileY] = renderable;
+        
+        return true;
+    }
+    
+    return false;
+  
 };
 
+/******************************************************************************** 
+ * removeTile
+ * 
+ * Removes a tile from the tileMap
+ * 
+ * @param {Integer}    tileX      | The column of the removed tile
+ * @param {Integer}    tileY      | The row of the removed tile
+ * 
+ ********************************************************************************/
+TileMap.prototype.removeTile = function(tileX, tileY)
+{
+    if(tileX >= 0 && tileX < this.width && tileY >= 0 && tileY < this.height)
+    {
+        this.tiles[tileX][tileY] = 0;
+        return true;
+    }
+    
+    return false;
+};
 
 /******************************************************************************** 
  * Draw
@@ -95,14 +118,11 @@ TileMap.prototype.addTile = function(tileX, tileY, renderable)
  * Draws the tilemap to the given viewport. Only the visible tiles are
  * drawn to screen.
  * 
+ * @param {Camera} camera | The camera to draw to
+ * 
  ********************************************************************************/
 TileMap.prototype.draw = function (camera)
 {
-    //var cameraX = camera.getWCCenter()[0];
-    //var cameraY = camera.getWCCenter()[1];
-    //var cameraHeight = camera.getWCHeight();
-    //var cameraWidth = camera.getWCWidth();
-
     var xMin = camera.getWCCenter()[0] - (camera.getWCWidth() / 2);
     var xMax = camera.getWCCenter()[0] + (camera.getWCWidth() / 2);
     var yMax = camera.getWCCenter()[1] + (camera.getWCHeight() / 2);
@@ -138,6 +158,13 @@ TileMap.prototype.draw = function (camera)
 
 /******************************************************************************** 
  * isTileAt
+ * 
+ * Checks whether there's a tile a given x and y.
+ * 
+ * @param {Integer} xPos | The column to check for a tile
+ * @param {Integer} yPos | The row to check for a tile
+ * 
+ * @returns {Boolean} Whether or not a tile exists  
  * 
  ********************************************************************************/
 TileMap.prototype.isTileAt = function (xPos, yPos)
