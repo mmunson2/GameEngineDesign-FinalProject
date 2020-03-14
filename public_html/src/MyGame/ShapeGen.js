@@ -35,6 +35,10 @@ ShapeGen.prototype.rectangle = function (x, y, height, width, color)
     }
 };
 
+/******************************************************************************** 
+ * TexturedRectangle
+ * 
+ ********************************************************************************/
 ShapeGen.prototype.texturedRectangle = function (x, y, height, width, texture, color, UVArray)
 {
     for(var i = 0; i < width; i++)
@@ -70,6 +74,8 @@ ShapeGen.prototype.triangle = function (x, y, width, color)
 
 
 
+
+
 /******************************************************************************** 
  * Circle
  * 
@@ -81,7 +87,7 @@ ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
     var x = 0;
     var y = r; 
     var d = 3 - 2 * r; 
-    this.drawCircle(xc, yc, x, y, color); 
+    this._drawCircle(xc, yc, x, y, color); 
     while (y >= x) 
     {  
         x++; 
@@ -92,7 +98,7 @@ ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
         } 
         else
             d = d + 4 * x + 6; 
-        this.drawCircle(xc, yc, x, y, color);
+        this._drawCircle(xc, yc, x, y, color);
     }
     if (fill && r > 0) this.circle(xc, yc, r - 1, color, fill);
 };
@@ -103,7 +109,7 @@ ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
  * 
  * 
  ********************************************************************************/
-ShapeGen.prototype.drawCircle = function (xc, yc, x, y, color)
+ShapeGen.prototype._drawCircle = function (xc, yc, x, y, color)
 {
     if (xc + x >= 0 && yc + y >= 0 && xc + x < this.tileMap.getWidth() && yc + y < this.tileMap.getHeight())
     {
