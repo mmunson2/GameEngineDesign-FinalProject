@@ -27,27 +27,24 @@ function TerrainGenerator( tileMap, startX, endX )
 /******************************************************************************** 
  * generateBumps
  * 
- * 
+ * @param {Integer} yLevel | The tile Y position where the bumps will center
  * 
  ********************************************************************************/
-TerrainGenerator.prototype.generateBumps = function (yLevel)
+TerrainGenerator.prototype.generateBumps = function ( yLevel )
 {
     this._generateBumps(this.startX, this.endX, yLevel);
 };
 
-TerrainGenerator.prototype.generateFlat = function (height)
+/******************************************************************************** 
+ * generateFlat
+ * 
+ * @param {Integer} startY | The lower bound of the generated rectangle
+ * @param {Integer} endY   | The upper bound of the generated rectangle
+ * 
+ ********************************************************************************/
+TerrainGenerator.prototype.generateFlat = function ( startY, endY )
 {
-    this.shapeGen.rectangle(0,0, height, this.tileMap.getWidth(), [0.2, 1, 0.2, 1]);
-};
-
-
-TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
-{    
-    for(var i = startX; i < endX; i++)
-    {
-        //this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
-        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, 5, [0.2, 1, 0.2, 1], true);
-    }
+    this.shapeGen.rectangle(this.startX, startY, endY, this.endX, [0.2, 1, 0.2, 1]);
 };
 
 TerrainGenerator.prototype.generateHills = function (yLevel, frequency, scale, steepness)
@@ -79,12 +76,7 @@ TerrainGenerator.prototype.generateHills = function (yLevel, frequency, scale, s
     
     
     
-}
-
-
-
-
-
+};
 
 /******************************************************************************** 
  * setTexture
@@ -106,8 +98,6 @@ TerrainGenerator.prototype.setTexture = function ( startY, endY, texture, UVArra
             } 
         }
     }
-    
-    
 };
 
 /******************************************************************************** 
@@ -132,21 +122,21 @@ TerrainGenerator.prototype.addTopTiles = function (texture, UVArray)
 };
 
 
-TerrainGenerator.prototype.addTree = function (x, y, height, wood, leaves)
+TerrainGenerator.prototype.addTree = function (x, y, height, woodTexture, woodUV, leafTexture, leafUV)
 {
     if (y + height > this.tileMap.getHeight()) return;
     
     for (var i = y; i < y + height - 2; i++)
     {
-        var renderable = new SpriteRenderable(wood);
-        renderable.setElementUVCoordinate(0, 1, 0, 1);
+        var renderable = new SpriteRenderable(woodTexture);
+        renderable.setElementUVCoordinate(woodUV[0], woodUV[1], woodUV[2], woodUV[3]);
         this.tileMap.addTile(x, i, renderable);
     }
     
-    this.shapeGen.rectangleTexture(x - 1, y + height - 2, 3, 3, leaves, [0.42, 0.67, 0.26, 0.8], [0,1,0,1]);
+    this.shapeGen.texturedRectangle(x - 1, y + height - 2, 3, 3, leafTexture, [0.42, 0.67, 0.26, 0.8], [0,1,0,1]);
 };
 
-TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequency, wood, leaves)
+TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequency, woodTexture, woodUV, leafTexture, leafUV)
 {
     for (var x = this.startX + 1; x < this.endX - 1; x++)
     {
@@ -156,11 +146,34 @@ TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequ
             {
                 if (Math.random() < frequency)
                 {
-                    this.addTree(x, y, Math.round(Math.random() * (maxHeight - minHeight)) + minHeight, wood, leaves);
+                    this.addTree(x, 
+                                 y, 
+                                 Math.round(Math.random() * (maxHeight - minHeight)) + minHeight, 
+                                 woodTexture, 
+                                 woodUV, 
+                                 leafTexture, 
+                                 leafUV);
                     x ++;
                 }
                 break;
             }
         }
+    }
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// Private Methods:
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
+{    
+    for(var i = startX; i < endX; i++)
+    {
+        //this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
+        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, 5, [0.2, 1, 0.2, 1], true);
     }
 };

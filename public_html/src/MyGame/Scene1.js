@@ -65,7 +65,7 @@ Scene1.prototype.loadScene = function ()
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
-    this.terrainGen.generateFlat(6);
+    this.terrainGen.generateFlat(0, 6);
     this.terrainGen.generateBumps(4);
     
     this.terrainGen.generateHills(6, 0.01, 120, 2);
@@ -79,7 +79,7 @@ Scene1.prototype.loadScene = function ()
     
     this.terrainGen.addTopTiles(this.grass, this.defaultUV);
     
-    this.terrainGen.generateTrees(5, 15, 0.05, this.wood, this.leaves);
+    this.terrainGen.generateTrees(5, 15, 0.05, this.wood, [1,0,1,0], this.leaves, [1,0,1,0]);
         
     this.background.initialize();
     
@@ -111,7 +111,7 @@ Scene1.prototype.update = function ()
     
     this.moveCamera();
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Z))
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R))
     {
         gEngine.Core.startScene(this.scene1);
     } 

@@ -35,7 +35,7 @@ ShapeGen.prototype.rectangle = function (x, y, height, width, color)
     }
 };
 
-ShapeGen.prototype.rectangleTexture = function (x, y, height, width, texture, color, UVArray)
+ShapeGen.prototype.texturedRectangle = function (x, y, height, width, texture, color, UVArray)
 {
     for(var i = 0; i < width; i++)
     {
