@@ -1,7 +1,7 @@
 
 
 
-function Scene1()
+function Scene2()
 {
     this.mCamera = null;
 
@@ -36,10 +36,10 @@ function Scene1()
 
     this.background = new MountainBackground();
     
-    this.scene2 = null;
+    this.scene1 = null;
 }
 
-Scene1.prototype.loadScene = function ()
+Scene2.prototype.loadScene = function ()
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
     gEngine.Textures.loadTexture(this.stone);
@@ -68,10 +68,12 @@ Scene1.prototype.loadScene = function ()
     this.terrainGen.generateFlat(0, 6);
     this.terrainGen.generateBumps(4);
     
-    this.terrainGen.generateHills(6, 0.01, 120, 2);
+    this.terrainGen.generateBumps(34);
+    this.terrainGen.generateFlat(34, 40);
     
     this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
     
+    /*
     for (var i = 0; i < 7; i++)
     {
         this.terrainGen.addTopTiles(this.dirt, this.defaultUV);
@@ -80,20 +82,21 @@ Scene1.prototype.loadScene = function ()
     this.terrainGen.addTopTiles(this.grass, this.defaultUV);
     
     this.terrainGen.generateTrees(5, 15, 0.05, this.wood, [1,0,1,0], this.leaves, [1,0,1,0]);
+    */    
         
     this.background.initialize();
     
-    this.scene2 = new Scene2();
+    this.scene1 = new Scene1();
 };
 
-Scene1.prototype.unloadScene = function ()
+Scene2.prototype.unloadScene = function ()
 {
     this.background.unloadTextures();
     gEngine.Textures.unloadTexture(this.spriteSheet);
 };
 
 
-Scene1.prototype.draw = function ()
+Scene2.prototype.draw = function ()
 {
    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
 
@@ -105,7 +108,7 @@ Scene1.prototype.draw = function ()
     this.tileMap.draw(this.mCamera); 
 };
 
-Scene1.prototype.update = function ()
+Scene2.prototype.update = function ()
 {
     this.background.update(this.xPos, this.yPos);
     
@@ -113,14 +116,14 @@ Scene1.prototype.update = function ()
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R))
     {
-        gEngine.Core.startScene(this.scene2);
+        gEngine.Core.startScene(this.scene1);
     } 
 };
 
 /******************************************************************************** 
  * moveCamera
  ********************************************************************************/
-Scene1.prototype.moveCamera = function ()
+Scene2.prototype.moveCamera = function ()
 {
    var cameraX = this.mCamera.getWCCenter()[0];
    var cameraY = this.mCamera.getWCCenter()[1];
@@ -179,9 +182,5 @@ Scene1.prototype.moveCamera = function ()
    this.yPos = cameraY;
    this.mCamera.update(); 
 };
-
-
-
-
 
 
