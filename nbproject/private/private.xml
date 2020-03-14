@@ -5,7 +5,7 @@
             <url>public_html/src/MyGame/MyGame.js</url>
             <bookmark id="1">
                 <name/>
-                <line>87</line>
+                <line>91</line>
                 <key/>
             </bookmark>
         </file>
@@ -17,12 +17,12 @@
         <group name="Apress-2d-game-engine"/>
         <group>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/MountainBackground.js</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/TerrainGenerator.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/Scene1.js</file>
+            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/Engine/Cameras/Camera.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/index.html</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/SkyBox.js</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/TileMap.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/ShapeGen.js</file>
+            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/TileMap.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/MyGame.js</file>
         </group>
     </open-files>
