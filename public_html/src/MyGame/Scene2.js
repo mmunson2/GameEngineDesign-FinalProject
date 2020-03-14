@@ -39,6 +39,10 @@ function Scene2()
     this.scene1 = null;
 }
 
+Scene2.prototype.initialize = function ()
+{};
+
+
 Scene2.prototype.loadScene = function ()
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
@@ -61,17 +65,19 @@ Scene2.prototype.loadScene = function ()
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
-    this.tileMap = new TileMap(-50, -25, 2, 300, 300);
+    this.tileMap = new TileMap(-50, -25, 2, 300, 100);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
     this.terrainGen.generateFlat(0, 6);
     this.terrainGen.generateBumps(4);
     
-    this.terrainGen.generateBumps(34);
-    this.terrainGen.generateFlat(34, 40);
+    this.terrainGen.generateBumps(44);
+    this.terrainGen.generateFlat(44, 50);
     
-    this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
+    this.terrainGen.setTexture(0, 300, this.spriteSheet, this.darkStoneUV);
+    
+    this.terrainGen.addTopTiles(this.spriteSheet, this.dirtUV);
     
     /*
     for (var i = 0; i < 7; i++)

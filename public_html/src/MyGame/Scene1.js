@@ -39,6 +39,10 @@ function Scene1()
     this.scene2 = null;
 }
 
+Scene1.prototype.initialize = function ()
+{};
+
+
 Scene1.prototype.loadScene = function ()
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
