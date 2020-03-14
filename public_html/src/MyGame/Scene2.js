@@ -34,7 +34,7 @@ function Scene2()
     this.xPos = 0;
     this.yPos = 0;
 
-    this.background = new MountainBackground();
+    this.background = new CaveBackground();
     
     this.scene1 = null;
 }
@@ -55,7 +55,7 @@ Scene2.prototype.loadScene = function ()
     this.background.loadTextures();
     
     this.mCamera = new Camera(
-        vec2.fromValues(0, 0), // position of the camera
+        vec2.fromValues(0, 15), // position of the camera
         100,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
@@ -72,8 +72,8 @@ Scene2.prototype.loadScene = function ()
     this.terrainGen.generateFlat(0, 6);
     this.terrainGen.generateBumps(4);
     
-    this.terrainGen.generateBumps(44);
-    this.terrainGen.generateFlat(44, 50);
+    this.terrainGen.generateBumps(34);
+    this.terrainGen.generateFlat(34, 40);
     
     this.terrainGen.setTexture(0, 300, this.spriteSheet, this.darkStoneUV);
     
@@ -124,6 +124,18 @@ Scene2.prototype.update = function ()
     {
         gEngine.Core.startScene(this.scene1);
     } 
+    
+    
+    if(this.xPos + this.mCamera.getWCWidth() / 2 > this.tileMap.getWCWidth() - 10)
+    {
+        this.xPos = 0;
+    }
+    if(this.xPos - this.mCamera.getWCWidth() / 2 < 0 + 10)
+    {
+        this.xPos = this.tileMap.getWCWidth();
+    }
+    
+    
 };
 
 /******************************************************************************** 
@@ -138,11 +150,11 @@ Scene2.prototype.moveCamera = function ()
     
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W))
    {
-       cameraY += this.cameraSpeed;
+       //cameraY += this.cameraSpeed;
    }
    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S))
    {
-       cameraY -= this.cameraSpeed;
+       //cameraY -= this.cameraSpeed;
    }
    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A))
    {
