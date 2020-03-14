@@ -20,6 +20,14 @@ function ShapeGen(tileMap)
 /******************************************************************************** 
  * Rectangle
  * 
+ * Creates a rectangle of simple Renderables with a given color
+ * 
+ * @param {Integer} x      | Left bound X
+ * @param {Integer} y      | Bottom bound Y
+ * @param {Integer} height | Determines top bound
+ * @param {Integer} width  | Determines right bound
+ * @param {Vec4} color     | The rectangle's color
+ * 
  ********************************************************************************/
 ShapeGen.prototype.rectangle = function (x, y, height, width, color)
 {
@@ -37,6 +45,17 @@ ShapeGen.prototype.rectangle = function (x, y, height, width, color)
 
 /******************************************************************************** 
  * TexturedRectangle
+ * 
+ * Creates a rectangle of a given texture
+ * 
+ * 
+ * @param {Integer} x      | Left bound X
+ * @param {Integer} y      | Bottom bound Y
+ * @param {Integer} height | Determines top bound
+ * @param {Integer} width  | Determines right bound
+ * @param {Integer} texture| The texture to be applied 
+ * @param {Vec4}    color  | The rectangle's color
+ * @param {Vec4}    UVArray| The texture's UV coordinates
  * 
  ********************************************************************************/
 ShapeGen.prototype.texturedRectangle = function (x, y, height, width, texture, color, UVArray)
@@ -57,6 +76,13 @@ ShapeGen.prototype.texturedRectangle = function (x, y, height, width, texture, c
 /******************************************************************************** 
  * Triangle
  * 
+ * Draws a simple equilateral triangle
+ * 
+ * @param {Integer} x      | Left bound X
+ * @param {Integer} y      | Bottom bound Y
+ * @param {Integer} width  | The triangle's base width
+ * @param {Vec4}    color  | The triangle's color
+ * 
  ********************************************************************************/
 ShapeGen.prototype.triangle = function (x, y, width, color)
 {
@@ -73,14 +99,18 @@ ShapeGen.prototype.triangle = function (x, y, width, color)
 };
 
 
-
-
-
 /******************************************************************************** 
  * Circle
  * 
+ * Draws a circle of a given radius
  * 
- * Bresenham’s circle drawing algorithm
+ * @param {Integer} xc    | The X position of the circle's center
+ * @param {Integer} yc    | The Y position of the circle's center
+ * @param {Integer} r     | The circle's radius
+ * @param {Vec4}    color | The circle's color
+ * @param {Boolean} fill  | Whether or not the circle should be filled
+ * 
+ * Utilizes Bresenham’s circle drawing algorithm
  ********************************************************************************/
 ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
 {
@@ -104,10 +134,15 @@ ShapeGen.prototype.circle = function (xc, yc, r, color, fill)
 };
 
 
+/////////////////////////////////////////////////////////////////////////////////
+// Private Methods:
+/////////////////////////////////////////////////////////////////////////////////
+
+
 /******************************************************************************** 
  * drawCircle
  * 
- * 
+ * Private method for generating portions of the circle
  ********************************************************************************/
 ShapeGen.prototype._drawCircle = function (xc, yc, x, y, color)
 {

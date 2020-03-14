@@ -1,12 +1,22 @@
 /******************************************************************************** 
+ * TileMap.js
  * 
+ * A grid of tiles on which terrain can be placed. This wasn't the main
+ * focus of our assignment so some functionality may be missing here.
+ * Performance is good though!
  * 
  ********************************************************************************/
 
 
 
 /******************************************************************************** 
+ * TileMap Constructor
  * 
+ * @param {Integer} xPos      | The WC position of the left boundary
+ * @param {Integer} yPos      | The WC position of the bottom boundary
+ * @param {Double } tileWidth | The WC width of a single tile
+ * @param {Integer} width     | The number of columns in the tileMap
+ * @param {Integer} height    | The number of rows in the tileMap
  * 
  ********************************************************************************/
 function TileMap(xPos, yPos, tileWidth, width, height)
@@ -24,6 +34,9 @@ function TileMap(xPos, yPos, tileWidth, width, height)
     this.initialize();
 }
 
+/******************************************************************************** 
+ * Getters
+ ********************************************************************************/
 TileMap.prototype.getWCHeight = function () {return this.height * this.tileWidth;};
 TileMap.prototype.getWCWidth = function () {return this.width * this.tileWidth;};
 TileMap.prototype.getWidth = function () {return this.width;};
@@ -32,6 +45,13 @@ TileMap.prototype.getXPos = function () {return this.xPos;};
 TileMap.prototype.getYPos = function () {return this.yPos;};
 
 
+/******************************************************************************** 
+ * Initialize
+ * 
+ * Called in the constructor, no need to call this for setup! Use this to
+ * clear all tiles if necessary.
+ *  
+ ********************************************************************************/
 TileMap.prototype.initialize = function () 
 {
     for(var i = 0; i < this.width; i++)
@@ -49,7 +69,13 @@ TileMap.prototype.initialize = function ()
 
 
 /******************************************************************************** 
+ * addTile
  * 
+ * Add a single tile to the tileMap
+ * 
+ * @param {Integer}    tileX      | The column of the added tile
+ * @param {Integer}    tileY      | The row of the added tile
+ * @param {Renderable} renderable | The renderable to draw to the tile
  * 
  ********************************************************************************/
 TileMap.prototype.addTile = function(tileX, tileY, renderable)
@@ -64,20 +90,23 @@ TileMap.prototype.addTile = function(tileX, tileY, renderable)
 
 
 /******************************************************************************** 
+ * Draw
  * 
+ * Draws the tilemap to the given viewport. Only the visible tiles are
+ * drawn to screen.
  * 
  ********************************************************************************/
 TileMap.prototype.draw = function (camera)
 {
-    var cameraX = camera.getWCCenter()[0];
-    var cameraY = camera.getWCCenter()[1];
-    var cameraHeight = camera.getWCHeight();
-    var cameraWidth = camera.getWCWidth();
+    //var cameraX = camera.getWCCenter()[0];
+    //var cameraY = camera.getWCCenter()[1];
+    //var cameraHeight = camera.getWCHeight();
+    //var cameraWidth = camera.getWCWidth();
 
-    var xMin = cameraX - (cameraWidth / 2);
-    var xMax = cameraX + (cameraWidth / 2);
-    var yMax = cameraY + (cameraHeight / 2);
-    var yMin = cameraY - (cameraHeight / 2);
+    var xMin = camera.getWCCenter()[0] - (camera.getWCWidth() / 2);
+    var xMax = camera.getWCCenter()[0] + (camera.getWCWidth() / 2);
+    var yMax = camera.getWCCenter()[1] + (camera.getWCHeight() / 2);
+    var yMin = camera.getWCCenter()[1] - (camera.getWCHeight() / 2);
     
     var tileMinX = Math.floor((xMin - this.xPos) / this.tileWidth) - 1;
     var tileMaxX = Math.ceil((xMax - this.xPos) / this.tileWidth) + 1;
@@ -85,17 +114,16 @@ TileMap.prototype.draw = function (camera)
     var tileMinY = Math.ceil((yMin - this.yPos) / this.tileWidth) - 1;
     var tileMaxY = Math.ceil((yMax - this.yPos) / this.tileWidth) + 1;
    
-   
     for(var i = tileMinX; i < tileMaxX; i++)
     {        
-        if(i >= this.width || i < 0) //Remove this if you can fix my shitty algorithm lol
+        if(i >= this.width || i < 0)
         {
             continue;
         }
         
         for(var j = tileMinY; j < tileMaxY; j++)
         {
-            if(j >= this.height || j < 0) //Remove this if you can fix my shitty algorithm lol
+            if(j >= this.height || j < 0) 
             {
                 continue;
             }
@@ -105,42 +133,14 @@ TileMap.prototype.draw = function (camera)
                this.tiles[i][j].draw(camera);
             }
         }
-    }
-    
-    
-    /* The old way, definite performance improvement!
-    for(var i = 0; i < this.width; i++)
-    {                
-        for(var j = 0; j < this.height; j++)
-        {
-            if(this.tiles[i][j] !== 0)
-            {
-               this.tiles[i][j].draw(camera);
-            }
-        }
-    }*/
-     
-     
+    }     
 };
 
-
 /******************************************************************************** 
- * 
+ * isTileAt
  * 
  ********************************************************************************/
 TileMap.prototype.isTileAt = function (xPos, yPos)
 {
     return (this.tiles[xPos][yPos] !== 0);
-};
-
-
-
-
-/******************************************************************************** 
- * 
- * 
- ********************************************************************************/
-TileMap.prototype.update = function ()
-{
-    
 };
