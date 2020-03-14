@@ -124,18 +124,7 @@ Scene2.prototype.update = function ()
     {
         gEngine.Core.startScene(this.scene1);
     } 
-    
-    
-    if(this.xPos + this.mCamera.getWCWidth() / 2 > this.tileMap.getWCWidth() - 10)
-    {
-        this.xPos = 0;
-    }
-    if(this.xPos - this.mCamera.getWCWidth() / 2 < 0 + 10)
-    {
-        this.xPos = this.tileMap.getWCWidth();
-    }
-    
-    
+      
 };
 
 /******************************************************************************** 
