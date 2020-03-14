@@ -177,7 +177,10 @@ TerrainGenerator.prototype.addTree = function (x, y, height, woodTexture, woodUV
         this.tileMap.addTile(x, i, renderable);
     }
     
-    this.shapeGen.texturedRectangle(x - 1, y + height - 2, 3, 3, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV);
+    //this.shapeGen.texturedRectangle(x - 1, y + height - 2, 3, 3, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV);
+    //this.shapeGen.texturedTriangle(x - 2, y + height - 2, 5, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV);
+    this.shapeGen.texturedCircle(x, y + height - 2, 2, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV, true);
+    //ShapeGen.prototype.texturedCircle = function (xc, yc, r, texture, color, UVArray, fill)
 };
 
 /******************************************************************************** 
