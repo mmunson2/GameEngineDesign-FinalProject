@@ -153,15 +153,6 @@ Scene1.prototype.moveCamera = function ()
        cameraX += this.cameraSpeed;
    }
    
-   if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))
-   {
-       console.log("Height: " + cameraHeight);
-       console.log("Width: " + cameraWidth);
-       
-       console.log("Tile Height: " + this.tileMap.getHeight());
-       console.log("Tile Width: " + this.tileMap.getWCWidth());
-   }
-   
    if(this.boundedCamera)
    {
        if(cameraY + cameraHeight / 2 > this.tileMap.getYPos() + this.tileMap.getWCHeight())

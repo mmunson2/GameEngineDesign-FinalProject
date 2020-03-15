@@ -122,13 +122,13 @@ TerrainGenerator.prototype.addTopTiles = function (texture, UVArray, flip)
     {
         for (var x = 0; x < this.tileMap.getWidth(); x++)
         {
-            for (var y = 0; y < this.tileMap.getHeight() - 1; y++)
+            for (var y = this.tileMap.getHeight() - 1; y >= 0 ; y--)
             {
-                if (this.tileMap.isTileAt(x, y))
+                if (!this.tileMap.isTileAt(x, y))
                 {
                     var renderable = new SpriteRenderable(texture);
                     renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
-                    this.tileMap.addTile(x, y - 1, renderable);
+                    this.tileMap.addTile(x, y, renderable);
                     break;
                 }
             }
@@ -138,13 +138,13 @@ TerrainGenerator.prototype.addTopTiles = function (texture, UVArray, flip)
     {
         for (var x = 0; x < this.tileMap.getWidth(); x++)
         {
-            for (var y = this.tileMap.getHeight() - 2; y >= 0; y--)
+            for (var y = 0; y < this.tileMap.getHeight(); y++)
             {
-                if (this.tileMap.isTileAt(x, y))
+                if (!this.tileMap.isTileAt(x, y))
                 {
                     var renderable = new SpriteRenderable(texture);
                     renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
-                    this.tileMap.addTile(x, y + 1, renderable);
+                    this.tileMap.addTile(x, y, renderable);
                     break;
                 }
             }

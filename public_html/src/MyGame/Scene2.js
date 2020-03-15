@@ -65,7 +65,7 @@ Scene2.prototype.loadScene = function ()
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
-    this.tileMap = new TileMap(-50, -25, 2, 300, 100);
+    this.tileMap = new TileMap(-50, -25, 2, 300, 50);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
@@ -77,18 +77,8 @@ Scene2.prototype.loadScene = function ()
     
     this.terrainGen.setTexture(0, 300, this.spriteSheet, this.darkStoneUV);
     
-    this.terrainGen.addTopTiles(this.spriteSheet, this.dirtUV);
+    this.terrainGen.addTopTiles(this.stone, this.defaultUV, true);
     
-    /*
-    for (var i = 0; i < 7; i++)
-    {
-        this.terrainGen.addTopTiles(this.dirt, this.defaultUV);
-    }
-    
-    this.terrainGen.addTopTiles(this.grass, this.defaultUV);
-    
-    this.terrainGen.generateTrees(5, 15, 0.05, this.wood, [1,0,1,0], this.leaves, [1,0,1,0]);
-    */    
         
     this.background.initialize();
     
@@ -158,16 +148,7 @@ Scene2.prototype.moveCamera = function ()
    {
        cameraX += this.cameraSpeed;
    }
-   
-   if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))
-   {
-       console.log("Height: " + cameraHeight);
-       console.log("Width: " + cameraWidth);
-       
-       console.log("Tile Height: " + this.tileMap.getHeight());
-       console.log("Tile Width: " + this.tileMap.getWCWidth());
-   }
-   
+      
    if(this.boundedCamera)
    {
        if(cameraY + cameraHeight / 2 > this.tileMap.getYPos() + this.tileMap.getWCHeight())
