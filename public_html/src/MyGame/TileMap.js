@@ -177,17 +177,15 @@ TileMap.prototype.isTileAt = function (xPos, yPos)
     return false;
 };
 
-
-
 TileMap.prototype.getBounds = function (xPos, yPos)
 {
     if(xPos >= 0 && xPos < this.width && yPos >= 0 && yPos < this.height)
     {
-        var leftBound = this.xPos + this.tileWidth * xPos - this.tileWidth;
-        var rightBound = this.xPos + this.tileWidth * xPos;
+        var leftBound = this.xPos + this.tileWidth * xPos
+        var rightBound = this.xPos + this.tileWidth * xPos + this.tileWidth;
         
-        var topBound = this.yPos + this.tileWidth * yPos;
-        var bottomBound = this.yPos + this.tileWidth * yPos - this.tileWidth;
+        var topBound = this.yPos + this.tileWidth * yPos + this.tileWidth;
+        var bottomBound = this.yPos + this.tileWidth * yPos;
 
         return [topBound, bottomBound, leftBound, rightBound];
     }

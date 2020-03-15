@@ -35,13 +35,3 @@ Renderable.prototype.getColor = function () { return this.mColor; };
 //</editor-fold>
 
 Renderable.prototype._setShader = function (s) { this.mShader = s; };
-
-Renderable.prototype.getBoundingBox = function()
-{
-    // top bot left right
-    var bounds = [this.mXform.getYPos() + this.mXform.getHeight() / 2, 
-                  this.mXform.getYPos() - this.mXform.getHeight() / 2,
-                  this.mXform.getXPos() - this.mXform.getWidth() / 2,
-                  this.mXform.getXPos() + this.mXform.getWidth() / 2];
-    return bounds;
-};
