@@ -99,6 +99,11 @@ Scene2.prototype.unloadScene = function ()
 {
     this.background.unloadTextures();
     gEngine.Textures.unloadTexture(this.spriteSheet);
+    gEngine.Textures.unloadTexture(this.stone);
+    gEngine.Textures.unloadTexture(this.dirt);
+    gEngine.Textures.unloadTexture(this.grass);
+    gEngine.Textures.unloadTexture(this.wood);
+    gEngine.Textures.unloadTexture(this.leaves);
 };
 
 
