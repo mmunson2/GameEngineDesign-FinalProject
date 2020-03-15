@@ -248,3 +248,51 @@ TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
         this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, 5, [0.2, 1, 0.2, 1], true);
     }
 };
+
+TerrainGenerator.prototype.getSurfaceCollision = function ( flip )
+{
+    collisionArray = [];
+    
+    if(flip === true)
+    {
+        for (var x = 0; x < this.tileMap.getWidth(); x++)
+        {
+            for (var y = this.tileMap.getHeight() - 2; y >= 0 ; y--)
+            {
+                if (!this.tileMap.isTileAt(x, y))
+                {
+                    collisionArray[x] = this.tileMap.getBounds(x, y + 1);
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (var x = 0; x < this.tileMap.getWidth(); x++)
+        {
+            for (var y = 1; y < this.tileMap.getHeight(); y++)
+            {
+                if (!this.tileMap.isTileAt(x, y))
+                {
+                    collisionArray[x] = this.tileMap.getBounds(x, y - 1);
+                    break;
+                }
+            }
+        }
+    }  
+    
+    console.log("Collision Array Length: " + collisionArray.length);
+    
+    for(var i = 0 ; i < collisionArray.length; i++)
+    {
+        if(collisionArray[i] === null)
+        {
+            console.log("Got a null!");
+        }
+    }
+    
+    
+    
+    return collisionArray;
+};

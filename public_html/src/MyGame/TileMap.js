@@ -169,5 +169,28 @@ TileMap.prototype.draw = function (camera)
  ********************************************************************************/
 TileMap.prototype.isTileAt = function (xPos, yPos)
 {
-    return (this.tiles[xPos][yPos] !== 0);
+    if(xPos >= 0 && xPos < this.width && yPos >= 0 && yPos < this.height)
+    {
+        return (this.tiles[xPos][yPos] !== 0);
+    }
+    
+    return false;
+};
+
+
+
+TileMap.prototype.getBounds = function (xPos, yPos)
+{
+    if(xPos >= 0 && xPos < this.width && yPos >= 0 && yPos < this.height)
+    {
+        var leftBound = this.xPos + this.tileWidth * xPos - this.tileWidth;
+        var rightBound = this.xPos + this.tileWidth * xPos;
+        
+        var topBound = this.yPos + this.tileWidth * yPos;
+        var bottomBound = this.yPos + this.tileWidth * yPos - this.tileWidth;
+
+        return [topBound, bottomBound, leftBound, rightBound];
+    }
+    
+    return null;
 };

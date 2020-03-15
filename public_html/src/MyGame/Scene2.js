@@ -7,6 +7,7 @@ function Scene2()
 
     // sprite sheet and uv coords of its constents
     this.spriteSheet = "assets/terrain_tileset.png";
+    this.heroSpriteSheet = "assets/SpriteSheet.png"
     this.stoneUV = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
     this.dirtUV = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
     this.darkDirtUV = [(97 + 32) / 256, (127 + 32) / 256, 65 / 128, 96 / 128];
@@ -52,6 +53,8 @@ Scene2.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.wood);
     gEngine.Textures.loadTexture(this.leaves);
     
+        gEngine.Textures.loadTexture(this.heroSpriteSheet);
+    
     this.background.loadTextures();
     
     this.mCamera = new Camera(
@@ -83,6 +86,14 @@ Scene2.prototype.loadScene = function ()
     this.background.initialize();
     
     this.scene1 = new Scene1();
+    
+    this.bottomArray = this.terrainGen.getSurfaceCollision();
+    this.topArray = this.terrainGen.getSurfaceCollision(true);
+    
+    this.collisionArray = this.bottomArray.concat(this.topArray);
+    
+    this.hero = new Hero(this.heroSpriteSheet);
+    
 };
 
 Scene2.prototype.unloadScene = function ()
@@ -94,6 +105,7 @@ Scene2.prototype.unloadScene = function ()
     gEngine.Textures.unloadTexture(this.grass);
     gEngine.Textures.unloadTexture(this.wood);
     gEngine.Textures.unloadTexture(this.leaves);
+    gEngine.Textures.unloadTexture(this.heroSpriteSheet);
 };
 
 
@@ -107,6 +119,8 @@ Scene2.prototype.draw = function ()
 
  
     this.tileMap.draw(this.mCamera); 
+    
+    this.hero.draw(this.mCamera);
 };
 
 Scene2.prototype.update = function ()
@@ -119,6 +133,8 @@ Scene2.prototype.update = function ()
     {
         gEngine.Core.startScene(this.scene1);
     } 
+      
+    this.hero.update(this.mCamera, this.collisionArray);  
       
 };
 
