@@ -214,7 +214,7 @@ TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequ
                                  woodUV, 
                                  leafTexture, 
                                  leafUV);
-                    x ++;
+                    x += 2;
                 }
                 break;
             }

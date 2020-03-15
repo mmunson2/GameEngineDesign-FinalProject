@@ -29,7 +29,7 @@ function TileMap(xPos, yPos, tileWidth, width, height)
     
     this.tiles = [];
     
-    this.initialize();
+    this.clearMap();
 }
 
 /******************************************************************************** 
@@ -43,13 +43,13 @@ TileMap.prototype.getXPos = function () {return this.xPos;};
 TileMap.prototype.getYPos = function () {return this.yPos;};
 
 /******************************************************************************** 
- * Initialize
+ * clearMap
  * 
  * Called in the constructor, no need to call this for setup! Use this to
  * clear all tiles if necessary.
  *  
  ********************************************************************************/
-TileMap.prototype.initialize = function () 
+TileMap.prototype.clearMap = function () 
 {
     for(var i = 0; i < this.width; i++)
     {

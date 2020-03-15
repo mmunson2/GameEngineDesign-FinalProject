@@ -1,13 +1,12 @@
 
 
 
-function Scene2()
+function Scene3()
 {
     this.mCamera = null;
 
     // sprite sheet and uv coords of its constents
     this.spriteSheet = "assets/terrain_tileset.png";
-    this.heroSpriteSheet = "assets/SpriteSheet.png"
     this.stoneUV = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
     this.dirtUV = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
     this.darkDirtUV = [(97 + 32) / 256, (127 + 32) / 256, 65 / 128, 96 / 128];
@@ -35,16 +34,17 @@ function Scene2()
     this.xPos = 0;
     this.yPos = 0;
 
-    this.background = new CaveBackground();
+    this.background = new MountainBackground();
     
-    this.scene3 = null;
+    this.step = 0;
+    this.frame = 0;
 }
 
-Scene2.prototype.initialize = function ()
+Scene3.prototype.initialize = function ()
 {};
 
 
-Scene2.prototype.loadScene = function ()
+Scene3.prototype.loadScene = function ()
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
     gEngine.Textures.loadTexture(this.stone);
@@ -53,12 +53,10 @@ Scene2.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.wood);
     gEngine.Textures.loadTexture(this.leaves);
     
-        gEngine.Textures.loadTexture(this.heroSpriteSheet);
-    
     this.background.loadTextures();
     
     this.mCamera = new Camera(
-        vec2.fromValues(0, 15), // position of the camera
+        vec2.fromValues(0, 0), // position of the camera
         100,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
@@ -68,35 +66,16 @@ Scene2.prototype.loadScene = function ()
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
-    this.tileMap = new TileMap(-50, -25, 2, 300, 50);
+    this.tileMap = new TileMap(-50, -25, 1, 102, 50);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
-    this.terrainGen.generateFlat(0, 6);
-    this.terrainGen.generateBumps(4);
-    
-    this.terrainGen.generateBumps(34);
-    this.terrainGen.generateFlat(34, 40);
-    
-    this.terrainGen.setTexture(0, 300, this.spriteSheet, this.darkStoneUV);
-    
-    this.terrainGen.addTopTiles(this.stone, this.defaultUV, true);
     
         
     this.background.initialize();
-    
-    this.scene3 = new Scene3();
-    
-    this.bottomArray = this.terrainGen.getSurfaceCollision();
-    this.topArray = this.terrainGen.getSurfaceCollision(true);
-    
-    this.collisionArray = this.bottomArray.concat(this.topArray);
-    
-    this.hero = new Hero(this.heroSpriteSheet);
-    
 };
 
-Scene2.prototype.unloadScene = function ()
+Scene3.prototype.unloadScene = function ()
 {
     this.background.unloadTextures();
     gEngine.Textures.unloadTexture(this.spriteSheet);
@@ -105,11 +84,10 @@ Scene2.prototype.unloadScene = function ()
     gEngine.Textures.unloadTexture(this.grass);
     gEngine.Textures.unloadTexture(this.wood);
     gEngine.Textures.unloadTexture(this.leaves);
-    gEngine.Textures.unloadTexture(this.heroSpriteSheet);
 };
 
 
-Scene2.prototype.draw = function ()
+Scene3.prototype.draw = function ()
 {
    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
 
@@ -119,29 +97,73 @@ Scene2.prototype.draw = function ()
 
  
     this.tileMap.draw(this.mCamera); 
-    
-    this.hero.draw(this.mCamera);
 };
 
-Scene2.prototype.update = function ()
+Scene3.prototype.doStep = function ()
+{
+    if (this.step === 0)
+    {
+        this.terrainGen.generateFlat(0, 6);
+    }
+    if (this.step === 1)
+    {
+        this.terrainGen.generateBumps(4);
+    }
+    if (this.step === 2)
+    {
+        this.terrainGen.generateHills(6, 0.02, 80, 2);
+    }
+    if (this.step === 3)
+    {
+        this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
+    }
+    if (this.step >= 4 && this.step <= 10)
+    {
+        this.terrainGen.addTopTiles(this.dirt, this.defaultUV);
+        this.frame += 30;
+    }
+    if (this.step === 11)
+    {
+        this.terrainGen.addTopTiles(this.grass, this.defaultUV);
+    }
+    if (this.step === 12)
+    {
+        this.terrainGen.generateTrees(5, 15, 0.05, this.wood, [1,0,1,0], this.leaves, [1,0,1,0]);
+    }
+    if (this.step === 13)
+    {
+        this.tileMap.clearMap();
+        this.step = -1;
+    }
+    this.step++;
+};
+
+Scene3.prototype.update = function ()
 {
     this.background.update(this.xPos, this.yPos);
     
-    this.moveCamera();
+    if (this.frame >= 45)
+    {
+        this.frame = 0;
+        this.doStep();
+    }
+    else
+    {
+        this.frame++;
+    }
+    
+    //this.moveCamera();
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R))
     {
-        gEngine.Core.startScene(this.scene3);
+        gEngine.Core.startScene(new Scene1());
     } 
-      
-    this.hero.update(this.mCamera, this.collisionArray);  
-      
 };
 
 /******************************************************************************** 
  * moveCamera
  ********************************************************************************/
-Scene2.prototype.moveCamera = function ()
+Scene3.prototype.moveCamera = function ()
 {
    var cameraX = this.mCamera.getWCCenter()[0];
    var cameraY = this.mCamera.getWCCenter()[1];
@@ -150,11 +172,11 @@ Scene2.prototype.moveCamera = function ()
     
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W))
    {
-       //cameraY += this.cameraSpeed;
+       cameraY += this.cameraSpeed;
    }
    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S))
    {
-       //cameraY -= this.cameraSpeed;
+       cameraY -= this.cameraSpeed;
    }
    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A))
    {
@@ -164,7 +186,7 @@ Scene2.prototype.moveCamera = function ()
    {
        cameraX += this.cameraSpeed;
    }
-      
+   
    if(this.boundedCamera)
    {
        if(cameraY + cameraHeight / 2 > this.tileMap.getYPos() + this.tileMap.getWCHeight())
@@ -191,5 +213,9 @@ Scene2.prototype.moveCamera = function ()
    this.yPos = cameraY;
    this.mCamera.update(); 
 };
+
+
+
+
 
 
