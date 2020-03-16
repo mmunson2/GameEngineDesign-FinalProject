@@ -154,11 +154,25 @@ Scene3.prototype.update = function ()
     
     //this.moveCamera();
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R))
+    this.sceneSwitch();
+    
+};
+
+Scene3.prototype.sceneSwitch = function ()
+{
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
     {
         gEngine.Core.startScene(new Scene1());
     } 
-};
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two))
+    {
+        gEngine.Core.startScene(new Scene2());
+    } 
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
+    {
+        gEngine.Core.startScene(new Scene3);
+    } 
+}
 
 /******************************************************************************** 
  * moveCamera

@@ -128,15 +128,29 @@ Scene2.prototype.update = function ()
     this.background.update(this.xPos, this.yPos);
     
     this.moveCamera();
+     
+    this.hero.update(this.mCamera, this.collisionArray);
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R))
-    {
-        gEngine.Core.startScene(this.scene3);
-    } 
-      
-    this.hero.update(this.mCamera, this.collisionArray);  
+    this.sceneSwitch();
       
 };
+
+Scene2.prototype.sceneSwitch = function ()
+{
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
+    {
+        gEngine.Core.startScene(new Scene1());
+    } 
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two))
+    {
+        gEngine.Core.startScene(new Scene2());
+    } 
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
+    {
+        gEngine.Core.startScene(new Scene3);
+    } 
+}
+
 
 /******************************************************************************** 
  * moveCamera

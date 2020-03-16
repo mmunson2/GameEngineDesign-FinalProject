@@ -17,14 +17,12 @@
         <group name="Apress-2d-game-engine"/>
         <group>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/TerrainGenerator.js</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/Scene1.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/Scene2.js</file>
+            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/Hero.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/index.html</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/CaveBackground.js</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/MyGame_Old.js</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/ShapeGen.js</file>
             <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/TileMap.js</file>
-            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/MyGame.js</file>
+            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/Engine/Renderables/Renderable.js</file>
+            <file>file:/Users/matthewmunson/Documents/GitHub/GameEngineDesign-FinalProject/public_html/src/MyGame/ShapeGen.js</file>
         </group>
     </open-files>
 </project-private>
