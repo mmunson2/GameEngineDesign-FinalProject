@@ -1,5 +1,9 @@
 /******************************************************************************** 
  * Scene2.js
+ * 
+ * A demonstration of a cavelike world with terrain generating up from the
+ * floor and down from the ceiling. Dye has made an appearance in our world
+ * to demonstrate how collisions are calculated on the tileMap.
  ********************************************************************************/
 function Scene2(camera)
 {
@@ -30,6 +34,8 @@ function Scene2(camera)
 
 /******************************************************************************** 
  * initialize
+ * 
+ * Nothing to see here! Our engine throws an error if this isn't included :(
  ********************************************************************************/
 Scene2.prototype.initialize = function ()
 {};

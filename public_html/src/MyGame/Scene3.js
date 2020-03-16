@@ -1,5 +1,9 @@
 /******************************************************************************** 
  * Scene3.js
+ * 
+ * A mezmerizing demonstration of how the terrain generator works step by
+ * step. Generation settings are very similar to Scene1 but camera 
+ * movement is restricted.
  ********************************************************************************/
 function Scene3(camera)
 {
@@ -35,6 +39,8 @@ function Scene3(camera)
 
 /******************************************************************************** 
  * initialize
+ * 
+ * Nothing to see here! Our engine throws an error if this isn't included :(
  ********************************************************************************/
 Scene3.prototype.initialize = function ()
 {};
@@ -113,7 +119,7 @@ Scene3.prototype.doStep = function ()
     }
     if (this.step === 3)
     {
-        this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
+        this.terrainGen.setTexture(0, 52, this.stone, this.defaultUV);
     }
     if (this.step >= 4 && this.step <= 10)
     {

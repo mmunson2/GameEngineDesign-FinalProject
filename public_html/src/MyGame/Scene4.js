@@ -1,5 +1,9 @@
 /******************************************************************************** 
  * Scene4.js
+ * 
+ * A desert scene demonstrating creative uses of the generateTrees() method.
+ * A gradient background of tiles is applied to give the appearance of a
+ * setting sun.
  ********************************************************************************/
 function Scene4(camera)
 {
@@ -30,6 +34,8 @@ function Scene4(camera)
 
 /******************************************************************************** 
  * initialize
+ * 
+ * Nothing to see here! Our engine throws an error if this isn't included :(
  ********************************************************************************/
 Scene4.prototype.initialize = function ()
 {};

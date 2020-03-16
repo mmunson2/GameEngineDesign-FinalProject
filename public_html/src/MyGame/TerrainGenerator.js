@@ -235,7 +235,7 @@ TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequ
 
 /******************************************************************************** 
  * getSurfaceCollision
- * 
+* 
  * 
  ********************************************************************************/
 TerrainGenerator.prototype.getSurfaceCollision = function ( flip )

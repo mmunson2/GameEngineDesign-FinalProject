@@ -1,5 +1,8 @@
 /******************************************************************************** 
  * Scene5.js
+ * 
+ * An otherworldy map demonstrating that you don't have to make normal
+ * terrain!
  ********************************************************************************/
 function Scene5(camera)
 {
@@ -12,8 +15,7 @@ function Scene5(camera)
     this.dispenser = "assets/blocks/dispenser_front_horizontal.png";
     this.defaultUV = [0,1,0,1];
 
-    this.tileMap = null;
-        
+    this.tileMap = null;      
     this.terrainGen = null;
     
     this.cameraSpeed = 1;
@@ -27,6 +29,8 @@ function Scene5(camera)
 
 /******************************************************************************** 
  * initialize
+ * 
+ * Nothing to see here! Our engine throws an error if this isn't included :(
  ********************************************************************************/
 Scene5.prototype.initialize = function ()
 {};
