@@ -5,9 +5,11 @@
  * all experienced in Minecraft and Terraria! A world featuring snowy mountains
  * and forested plains.
  ********************************************************************************/
-function Scene1()
+function Scene1(camera)
 {
-    this.mCamera = null;
+    this.mCamera = camera;
+    this.mCamera.setWCCenter(0,0);
+    this.mCamera.update();
     
     this.stone = "assets/stone.png";
     this.dirt = "assets/dirt.png";
@@ -30,6 +32,8 @@ function Scene1()
     this.yPos = 0;
 
     this.background = new MountainBackground();
+    
+    document.getElementById("info").innerHTML = "Use keys 1-5 to change scenes | Current Scene: 1 | Use WASD to move camera";
     
 }
 
@@ -62,12 +66,6 @@ Scene1.prototype.loadScene = function ()
     //Load parallax background
     this.background.loadTextures();
     
-    //Initialize the camera
-    this.mCamera = new Camera(
-        vec2.fromValues(0, 0), // position of the camera
-        100,                   // width of camera
-        [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
-    );
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
     this.mCamera.configInterpolation(1, 1);
     
@@ -157,23 +155,23 @@ Scene1.prototype.sceneSwitch = function ()
 {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
     {
-        gEngine.Core.startScene(new Scene1());
+        gEngine.Core.startScene(new Scene1(this.mCamera));
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two))
     {
-        gEngine.Core.startScene(new Scene2());
+        gEngine.Core.startScene(new Scene2(this.mCamera));
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
     {
-        gEngine.Core.startScene(new Scene3);
+        gEngine.Core.startScene(new Scene3(this.mCamera));
     } 
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Four))
     {
-        gEngine.Core.startScene(new Scene4());
+        gEngine.Core.startScene(new Scene4(this.mCamera));
     }
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Five))
     {
-        gEngine.Core.startScene(new Scene5());
+        gEngine.Core.startScene(new Scene5(this.mCamera));
     }
 };
 

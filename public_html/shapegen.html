@@ -1,0 +1,185 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta name = "robots" content = "noindex" />
+
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+	<link rel = "stylesheet" href = "style.css" >
+
+        <link rel = "shortcut icon" href = "icons/favicon.ico">
+        
+	<title> ShapeGen </title>
+
+	<meta name = "description" content = "ShapeGen Documentation" />
+
+</head>
+
+<body>
+        <!-- The main header and text under it -->
+	<h1> ShapeGen </h1>
+	<p class = "flavor"> <b><i> The muscles. </i></b> </p>
+
+        <!-- The menu for the site -->
+        <a href = "index.html"> <h2 class = "home"> Home </h2> </a>
+        
+        <h2 class = "classes"> Classes </h2>
+
+	<p class = "classes">
+
+		<a href = "tilemap.html"> &#8226 TileMap </a> <br>
+
+		<a href = "shapegen.html"> &#8226 ShapeGen </a> <br>
+                
+                <a href = "terraingen.html"> &#8226 TerrainGenerator </a> <br>
+
+	</p>
+        
+        <h2 class = "extra"> Extra </h2>
+
+	<p class = "extra">
+
+		<a href = "tutorials.html"> &#8226 Tutorials </a> <br>
+
+		<a href = "demo.html"> &#8226 Demo </a> <br>
+
+	</p>
+        
+        <!-- The main text boxes -->
+        <h2 class = "text"> Constructor </h2>
+        <p class = "text">
+            
+            new <b> ShapeGen </b> (tileMap) <br> <br>
+            
+            Constructor that creates a ShapeGen object <br> <br>
+            
+            <b> tileMap: </b> The TileMap that ShapeGen will operate on
+            
+        </p>
+            
+        <h2 class = "text"> Methods </h2>
+        <p class = "text">
+            
+            <b> rectangle </b> (x, y, height, width, color) <br> <br>
+            
+            Creates a colored rectangle at given tile x and y <br> <br>
+            
+            <b> x: </b> The tile x to put the rectangle at <br>
+            <b> y: </b> The tile y to put the rectangle at <br>
+            <b> height: </b> The height in tiles of the rectangle <br>
+            <b> width: </b> The width in tiles of the rectangle <br>
+            <b> color: </b> The color array for the tiles to be colored
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> texturedRectangle </b> (x, y, height, width, texture, color, UVArray) <br> <br>
+            
+            Creates a textured rectangle at given tile x and y <br> <br>
+            
+            <b> x: </b> The tile x to put the rectangle at <br>
+            <b> y: </b> The tile y to put the rectangle at <br>
+            <b> height: </b> The height in tiles of the rectangle <br>
+            <b> width: </b> The width in tiles of the rectangle <br>
+            <b> texture: </b> The texture file to use <br>
+            <b> color: </b> The color array for the tiles to be colored <br>
+            <b> UVArray: </b> The UV coordinates the specify the texture
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> triangle </b> (x, y, width, color) <br> <br>
+            
+            Creates a colored triangle at given tile x and y <br> <br>
+            
+            <b> x: </b> The tile x to put the triangle at <br>
+            <b> y: </b> The tile y to put the triangle at <br>
+            <b> width: </b> The width in tiles of the triangle <br>
+            <b> color: </b> The color array for the tiles to be colored
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> texturedTriangle </b> (x, y, width, texture, color, UVArray) <br> <br>
+            
+            Creates a textured triangle at given tile x and y <br> <br>
+            
+            <b> x: </b> The tile x to put the triangle at <br>
+            <b> y: </b> The tile y to put the triangle at <br>
+            <b> width: </b> The width in tiles of the triangle <br>
+            <b> texture: </b> The texture file to use <br>
+            <b> color: </b> The color array for the tiles to be colored <br>
+            <b> UVArray: </b> The UV coordinates the specify the texture
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> circle </b> (xc, yc, r, color, fill) <br> <br>
+            
+            Creates a colored circle centered at given tile x and y <br> <br>
+            
+            <b> xc: </b> The tile x to put the circle at <br>
+            <b> yc: </b> The tile y to put the circle at <br>
+            <b> r: </b> The radius of the circle <br>
+            <b> color: </b> The color array for the tiles to be colored <br>
+            <b> fill: </b> True for filled in circle, false for empty circle
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> texturedCircle </b> (xc, yc, r, texture, color, UVArray, fill) <br> <br>
+            
+            Creates a textured circle centered at given tile x and y <br> <br>
+            
+            <b> xc: </b> The tile x to put the circle at <br>
+            <b> yc: </b> The tile y to put the circle at <br>
+            <b> r: </b> The radius of the circle <br>
+            <b> texture: </b> The texture file to use <br>
+            <b> color: </b> The color array for the tiles to be colored <br>
+            <b> fill: </b> True for filled in circle, false for empty circle <br>
+            <b> UVArray: </b> The UV coordinates the specify the texture
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> _drawCircle </b> (xc, yc, x, y, color) <br> <br>
+            
+            Private helper function that draws the colored circle <br> <br>
+            
+            <b> xc: </b> The x center of the circle <br>
+            <b> yc: </b> The y center of the circle <br>
+            <b> x: </b> The calculated x offset <br>
+            <b> y: </b> The calculated y offset <br>
+            <b> color: </b> The color array for the tiles to be colored
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> _drawTexturedCircle </b> (xc, yc, x, y, texture, color, UVArray) <br> <br>
+            
+            Private helper function that draws the textured circle <br> <br>
+            
+            <b> xc: </b> The x center of the circle <br>
+            <b> yc: </b> The y center of the circle <br>
+            <b> x: </b> The calculated x offset <br>
+            <b> y: </b> The calculated y offset <br>
+            <b> texture: </b> The texture file to use <br>
+            <b> color: </b> The color array for the tiles to be colored <br>
+            <b> UVArray: </b> The UV coordinates the specify the texture
+            
+        </p>
+        <br>
+            
+</body>
+
+</html>

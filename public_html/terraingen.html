@@ -1,0 +1,172 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta name = "robots" content = "noindex" />
+
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+	<link rel = "stylesheet" href = "style.css" >
+
+        <link rel = "shortcut icon" href = "icons/favicon.ico">
+        
+	<title> TerrainGenerator </title>
+
+	<meta name = "description" content = "TerrainGenerator Documentation" />
+
+</head>
+
+<body>
+        <!-- The main header and text under it -->
+	<h1> TerrainGenerator </h1>
+	<p class = "flavor"> <b><i> The brain. </i></b> </p>
+
+        <!-- The menu for the site -->
+        <a href = "index.html"> <h2 class = "home"> Home </h2> </a>
+        
+        <h2 class = "classes"> Classes </h2>
+
+	<p class = "classes">
+
+		<a href = "tilemap.html"> &#8226 TileMap </a> <br>
+
+		<a href = "shapegen.html"> &#8226 ShapeGen </a> <br>
+                
+                <a href = "terraingen.html"> &#8226 TerrainGenerator </a> <br>
+
+	</p>
+        
+        <h2 class = "extra"> Extra </h2>
+
+	<p class = "extra">
+
+		<a href = "tutorials.html"> &#8226 Tutorials </a> <br>
+
+		<a href = "demo.html"> &#8226 Demo </a> <br>
+
+	</p>
+        
+        <!-- The main text boxes -->
+        <h2 class = "text"> Constructor </h2>
+        <p class = "text">
+            
+            new <b> TerrainGenerator </b> (tileMap, startX, endX) <br> <br>
+            
+            Constructor that creates a TerrainGenerator object <br> <br>
+            
+            <b> tileMap: </b> The TileMap that TerrainGenerator will operate on <br>
+            <b> startX: </b> The tile x to start at <br>
+            <b> endX: </b> The tile x to end at <br>
+            
+        </p>
+            
+        <h2 class = "text"> Methods </h2>
+        <p class = "text">
+            
+            <b> generateBumps </b> (yLevel) <br> <br>
+            
+            Generates bumpy terrain at given y level <br> <br>
+            
+            <b> yLevel: </b> The tile y to generate bumps at
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> genrateFlat </b> (startY, endY) <br> <br>
+            
+            Generates flat terrain between start and end y tile <br> <br>
+            
+            <b> startY: </b> The y tile to start at <br>
+            <b> endY: </b> The y tile to end at
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> generateHills </b> (yLevel, frequency, scale, steepness) <br> <br>
+            
+            Generates hills at given yLevel <br> <br>
+            
+            <b> yLevel: </b> The tile y to generate hills at <br>
+            <b> frequency: </b> The chance of generating a hill <br>
+            <b> scale: </b> Adjusts the overall size of the hills <br>
+            <b> steepness: </b> Adjusts how steep the hills will be
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> setTexture </b> (startY, endY, texture, UVArray) <br> <br>
+            
+            Sets the texture of all tile between given y tiles <br> <br>
+            
+            <b> startY: </b> The y tile to start at <br>
+            <b> endY: </b> The y tile to end at <br>
+            <b> texture: </b> The texture file to use <br>
+            <b> UVArray: </b> The UV coordinates the specify the texture
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> addTopTiles </b> (texture, UVArray, flip) <br> <br>
+            
+            Covers the surface of the TileMap with tiles <br> <br>
+            
+            <b> texture: </b> The texture file to use <br>
+            <b> UVArray: </b> The UV coordinates the specify the texture <br>
+            <b> flip: </b> If true the tiles will go on the ceiling
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> addTree </b> (x, y, height, woodTexture, woodUV, leafTexture, leafUV) <br> <br>
+            
+            Creates a tree at given x and y tile <br> <br>
+            
+            <b> x: </b> The tile x to put the tree at <br>
+            <b> y: </b> The tile y to put the tree at <br>
+            <b> height: </b> The height of the tree <br>
+            <b> woodTexture: </b> The texture file to use for the wood <br>
+            <b> woodUV: </b> The UV coordinates the specify the texture for the wood <br>
+            <b> leafTexture: </b> The texture file to use for the leaf <br>
+            <b> leafUV: </b> The UV coordinates the specify the texture for the leaf
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> generateTrees </b> (minHeight, maxHeight, frequency, woodTexture, woodUV, leafTexture, leafUV) <br> <br>
+            
+            Generates trees across the whole TerrainGenerator <br> <br>
+            
+            <b> minHeight: </b> The minimum height of a tree <br>
+            <b> maxHeight: </b> The maximum height of a tree <br>
+            <b> frequency: </b> The chance of generating a tree <br>
+            <b> woodTexture: </b> The texture file to use for the wood <br>
+            <b> woodUV: </b> The UV coordinates the specify the texture for the wood <br>
+            <b> leafTexture: </b> The texture file to use for the leaf <br>
+            <b> leafUV: </b> The UV coordinates the specify the texture for the leaf
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> _generateBumps </b> (startX, endX, yLevel) <br> <br>
+            
+            Private helper function that generates bumpy terrain <br> <br>
+            
+            <b> startX: </b> The x tile to start at <br>
+            <b> endX: </b> The x tile to stop at <br>
+            <b> yLevel: </b> The tile y to generate bumps at
+            
+        </p>
+        <br>
+            
+</body>
+
+</html>

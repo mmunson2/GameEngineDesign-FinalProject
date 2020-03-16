@@ -53,8 +53,8 @@ Hero.prototype.getBoundingBox = function()
 
 Hero.prototype.update = function (camera, collisionArray)
 {
-    var targetX = (gEngine.Input.getMousePosX() / 1000) * 100 - 50 + camera.getWCCenter()[0];
-    var targetY = (gEngine.Input.getMousePosY() / 500) * 50 - 25 + camera.getWCCenter()[1];
+    var targetX = (gEngine.Input.getMousePosX() / 1800) * 100 - 50 + camera.getWCCenter()[0];
+    var targetY = (gEngine.Input.getMousePosY() / 900) * 50 - 25 + camera.getWCCenter()[1];
     
     this.interpolateX.setFinalValue(targetX);
     this.interpolateY.setFinalValue(targetY);

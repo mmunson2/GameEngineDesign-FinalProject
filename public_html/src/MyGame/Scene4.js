@@ -1,9 +1,11 @@
 /******************************************************************************** 
  * Scene4.js
  ********************************************************************************/
-function Scene4()
+function Scene4(camera)
 {
-    this.mCamera = null;
+    this.mCamera = camera;
+    this.mCamera.setWCCenter(0,0);
+    this.mCamera.update();
     
     this.stone = "assets/stone.png";    
     this.bedrock = "assets/blocks/bedrock.png";
@@ -22,6 +24,8 @@ function Scene4()
     
     this.xPos = 0;
     this.yPos = 0;
+    
+    document.getElementById("info").innerHTML = "Use keys 1-5 to change scenes | Current Scene: 4 | Use WASD to move camera";
 }
 
 /******************************************************************************** 
@@ -42,11 +46,6 @@ Scene4.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.sand);
     gEngine.Textures.loadTexture(this.sandstone);
         
-    this.mCamera = new Camera(
-        vec2.fromValues(0, 0), // position of the camera
-        100,                   // width of camera
-        [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
-    );
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
     this.mCamera.configInterpolation(1, 1);
     
@@ -142,23 +141,23 @@ Scene4.prototype.sceneSwitch = function ()
 {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
     {
-        gEngine.Core.startScene(new Scene1());
+        gEngine.Core.startScene(new Scene1(this.mCamera));
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two))
     {
-        gEngine.Core.startScene(new Scene2());
+        gEngine.Core.startScene(new Scene2(this.mCamera));
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
     {
-        gEngine.Core.startScene(new Scene3);
+        gEngine.Core.startScene(new Scene3(this.mCamera));
     } 
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Four))
     {
-        gEngine.Core.startScene(new Scene4());
+        gEngine.Core.startScene(new Scene4(this.mCamera));
     }
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Five))
     {
-        gEngine.Core.startScene(new Scene5());
+        gEngine.Core.startScene(new Scene5(this.mCamera));
     }
 };
 

@@ -1,0 +1,182 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta name = "robots" content = "noindex" />
+
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+	<link rel = "stylesheet" href = "style.css" >
+
+        <link rel = "shortcut icon" href = "icons/favicon.ico">
+        
+	<title> TileMap </title>
+
+	<meta name = "description" content = "TileMap Documentation" />
+
+</head>
+
+<body>
+        <!-- The main header and text under it -->
+	<h1> TileMap </h1>
+	<p class = "flavor"> <b><i> The backbone. </i></b> </p>
+
+        <!-- The menu for the site -->
+        <a href = "index.html"> <h2 class = "home"> Home </h2> </a>
+        
+        <h2 class = "classes"> Classes </h2>
+
+	<p class = "classes">
+
+		<a href = "tilemap.html"> &#8226 TileMap </a> <br>
+
+		<a href = "shapegen.html"> &#8226 ShapeGen </a> <br>
+                
+                <a href = "terraingen.html"> &#8226 TerrainGenerator </a> <br>
+
+	</p>
+        
+        <h2 class = "extra"> Extra </h2>
+
+	<p class = "extra">
+
+		<a href = "tutorials.html"> &#8226 Tutorials </a> <br>
+
+		<a href = "demo.html"> &#8226 Demo </a> <br>
+
+	</p>
+        
+        <!-- The main text boxes -->
+        <h2 class = "text"> Constructor </h2>
+        <p class = "text">
+            
+            new <b> TileMap </b> (xPos, yPos, tileWidth, width, height) <br> <br>
+            
+            Constructor that creates a TileMap <br> <br>
+            
+            <b> xPos: </b> The world coordinate x position of the TileMap <br>
+            <b> yPos: </b> The world coordinate y position of the TileMap <br>
+            <b> tileWidth: </b> The world coordinate width of each tile <br>
+            <b> width: </b> The width of the TileMap in tiles <br>
+            <b> height: </b> The height of the TileMap in tiles
+            
+        </p>
+            
+        <h2 class = "text"> Methods </h2>
+        <p class = "text">
+            
+            <b> getWCHeight </b> () <br> <br>
+            
+            Returns the world coordinate height of the TileMap
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> getWCWidth </b> () <br> <br>
+            
+            Returns the world coordinate width of the TileMap
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> getWidth </b> () <br> <br>
+            
+            Returns the width of the TileMap in tiles
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> getHeight </b> () <br> <br>
+            
+            Returns the height of the TileMap in tiles
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> getXPos </b> () <br> <br>
+            
+            Returns the world coordinate x position of the TileMap
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> getYPos </b> () <br> <br>
+            
+            Returns the world coordinate y position of the TileMap
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> clearMap </b> () <br> <br>
+            
+            Removes all tiles from the TileMap
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> addTile </b> (tileX, tileY, renderable) <br> <br>
+            
+            Adds a renderable to the TileMap <br> <br>
+            
+            <b> tileX: </b> The target x for the new tile <br>
+            <b> tileY: </b> The target y for the new tile <br>
+            <b> renderable: </b> The renderable to be put in the TileMap
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> removeTile </b> (tileX, tileY) <br> <br>
+            
+            Removes a tile from the TileMap <br> <br>
+            
+            <b> tileX: </b> The target x to remove from <br>
+            <b> tileY: </b> The target y to remove from
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> draw </b> (camera) <br> <br>
+            
+            Draws the TileMap <br> <br>
+            
+            <b> camera: </b> The camera to draw the TileMap on
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> isTileAt </b> (xPos, yPos) <br> <br>
+            
+            Returns true if tile is at given x and y <br> <br>
+            
+            <b> tileX: </b> The target x to check for a tile <br>
+            <b> tileY: </b> The target y to check for a tile
+            
+        </p>
+        <br>
+        <p class = "text">
+            
+            <b> getBounds </b> (xPos, yPos) <br> <br>
+            
+            Returns a bounding box for the tile at given x and y <br> <br>
+            
+            <b> tileX: </b> The target x to get bounding box <br>
+            <b> tileY: </b> The target y to get bounding box
+            
+        </p>
+        <br>
+            
+</body>
+
+</html>

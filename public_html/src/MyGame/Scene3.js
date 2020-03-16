@@ -1,9 +1,11 @@
 /******************************************************************************** 
  * Scene3.js
  ********************************************************************************/
-function Scene3()
+function Scene3(camera)
 {
-    this.mCamera = null;
+    this.mCamera = camera;
+    this.mCamera.setWCCenter(0,0);
+    this.mCamera.update();
     
     this.stone = "assets/stone.png";
     this.dirt = "assets/dirt.png";
@@ -27,6 +29,8 @@ function Scene3()
     
     this.step = 0;
     this.frame = 0;
+    
+    document.getElementById("info").innerHTML = "Use keys 1-5 to change scenes | Current Scene: 3 | Looping terrain generation";
 }
 
 /******************************************************************************** 
@@ -49,18 +53,13 @@ Scene3.prototype.loadScene = function ()
         
     this.background.loadTextures();
     
-    this.mCamera = new Camera(
-        vec2.fromValues(0, 0), // position of the camera
-        100,                   // width of camera
-        [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
-    );
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
     this.mCamera.configInterpolation(1, 1);
     
     this.background.setWidth(this.mCamera.getWCWidth());
     this.background.setHeight(this.mCamera.getWCHeight());
     
-    this.tileMap = new TileMap(-50, -25, 1, 102, 50);
+    this.tileMap = new TileMap(-50, -25, 1, 102, 52);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
@@ -165,22 +164,22 @@ Scene3.prototype.sceneSwitch = function ()
 {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
     {
-        gEngine.Core.startScene(new Scene1());
+        gEngine.Core.startScene(new Scene1(this.mCamera));
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two))
     {
-        gEngine.Core.startScene(new Scene2());
+        gEngine.Core.startScene(new Scene2(this.mCamera));
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
     {
-        gEngine.Core.startScene(new Scene3);
+        gEngine.Core.startScene(new Scene3(this.mCamera));
     } 
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Four))
     {
-        gEngine.Core.startScene(new Scene4());
+        gEngine.Core.startScene(new Scene4(this.mCamera));
     }
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Five))
     {
-        gEngine.Core.startScene(new Scene5());
+        gEngine.Core.startScene(new Scene5(this.mCamera));
     }
 };
