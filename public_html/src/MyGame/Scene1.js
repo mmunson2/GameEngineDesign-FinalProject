@@ -1,41 +1,24 @@
-
-
-
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 function Scene1()
 {
     this.mCamera = null;
 
-    // sprite sheet and uv coords of its constents
-    this.spriteSheet = "assets/terrain_tileset.png";
-    this.stoneUV = [97 / 256, 127 / 256, 0 / 128, 31 / 128];
-    this.dirtUV = [97 / 256, 127 / 256, 65 / 128, 96 / 128];
-    this.darkDirtUV = [(97 + 32) / 256, (127 + 32) / 256, 65 / 128, 96 / 128];
-    this.darkStoneUV = [(97 + 32) / 256, (127 + 32) / 256, 0 / 128, 31 / 128];
-    this.grassUV = [97 / 256, 127 /256, 32 / 128, 64 / 128];
+    // sprite sheet and uv coords of its constants
     
     this.stone = "assets/stone.png";
     this.dirt = "assets/dirt.png";
     this.grass = "assets/grass.png";
     this.wood = "assets/wood.png";
     this.leaves = "assets/leaves.png";
-    
-    
     this.bedrock = "assets/blocks/bedrock.png";
-    this.coal = "assets/blocks/coal_block.png";
-    this.cobblestone = "assets/blocks/cobblestone.png";
-    this.mossyCobblestone = "assets/blocks/cobblestone_mossy.png";
-    this.cactus = "assets/blocks/cactus_side.png";
-    this.sand = "assets/blocks/sand.png";
     this.snowDirt = "assets/blocks/grass_side_snowed.png";
-    this.snow = "assets/blocks/snow.png";
+   
     this.defaultUV = [0,1,0,1];
 
     this.tileMap = null;
-    
-    this.shapes = null;
-    
-    this.shapeGen = null;
-    
+   
     this.terrainGen = null;
     
     this.cameraSpeed = 1;
@@ -46,16 +29,20 @@ function Scene1()
 
     this.background = new MountainBackground();
     
-    this.scene2 = null;
 }
 
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 Scene1.prototype.initialize = function ()
 {};
 
 
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 Scene1.prototype.loadScene = function ()
 {
-    gEngine.Textures.loadTexture(this.spriteSheet);
     gEngine.Textures.loadTexture(this.stone);
     gEngine.Textures.loadTexture(this.dirt);
     gEngine.Textures.loadTexture(this.grass);
@@ -63,13 +50,7 @@ Scene1.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.leaves);
     
     gEngine.Textures.loadTexture(this.bedrock);
-    gEngine.Textures.loadTexture(this.coal);
     gEngine.Textures.loadTexture(this.snowDirt);
-    gEngine.Textures.loadTexture(this.snow);
-    gEngine.Textures.loadTexture(this.cobblestone);
-    gEngine.Textures.loadTexture(this.mossyCobblestone);
-    gEngine.Textures.loadTexture(this.cactus);
-    gEngine.Textures.loadTexture(this.sand);
     
     this.background.loadTextures();
     
@@ -85,7 +66,17 @@ Scene1.prototype.loadScene = function ()
     this.background.setHeight(this.mCamera.getWCHeight());
     
     this.tileMap = new TileMap(-50, -25, 2, 300, 300);
-   
+        
+    this.generateTerrain();    
+        
+    this.background.initialize();
+};
+
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
+Scene1.prototype.generateTerrain = function ()
+{
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
     this.terrainGen.generateFlat(0, 6);
@@ -93,7 +84,8 @@ Scene1.prototype.loadScene = function ()
     
     this.terrainGen.generateHills(6, 0.01, 120, 2);
     
-    this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
+    this.terrainGen.setTexture(0, 1, this.bedrock, this.defaultUV);
+    this.terrainGen.setTexture(1, 300, this.stone, this.defaultUV);
     
     for (var i = 0; i < 7; i++)
     {
@@ -104,16 +96,14 @@ Scene1.prototype.loadScene = function ()
     this.terrainGen.addTopTiles(this.snowDirt, this.defaultUV, 75, this.tileMap.getHeight() - 1, false);
     
     this.terrainGen.generateTrees(5, 15, 0.05, this.wood, [1,0,1,0], this.leaves, [1,0,1,0]);
-        
-    this.background.initialize();
-    
-    this.scene2 = new Scene2();
 };
 
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 Scene1.prototype.unloadScene = function ()
 {
     this.background.unloadTextures();
-    gEngine.Textures.unloadTexture(this.spriteSheet);
     gEngine.Textures.unloadTexture(this.stone);
     gEngine.Textures.unloadTexture(this.dirt);
     gEngine.Textures.unloadTexture(this.grass);
@@ -121,16 +111,12 @@ Scene1.prototype.unloadScene = function ()
     gEngine.Textures.unloadTexture(this.leaves);
     
     gEngine.Textures.unloadTexture(this.bedrock);
-    gEngine.Textures.unloadTexture(this.coal);
     gEngine.Textures.unloadTexture(this.snowDirt);
-    gEngine.Textures.unloadTexture(this.snow);
-    gEngine.Textures.unloadTexture(this.cobblestone);
-    gEngine.Textures.unloadTexture(this.mossyCobblestone);
-    gEngine.Textures.unloadTexture(this.cactus);
-    gEngine.Textures.unloadTexture(this.sand);
 };
 
-
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 Scene1.prototype.draw = function ()
 {
    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
@@ -143,6 +129,9 @@ Scene1.prototype.draw = function ()
     this.tileMap.draw(this.mCamera); 
 };
 
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 Scene1.prototype.update = function ()
 {
     this.background.update(this.xPos, this.yPos);
@@ -152,6 +141,9 @@ Scene1.prototype.update = function ()
     this.sceneSwitch();
 };
 
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
 Scene1.prototype.sceneSwitch = function ()
 {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
@@ -164,15 +156,17 @@ Scene1.prototype.sceneSwitch = function ()
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
     {
-        gEngine.Core.startScene(new Scene3());
+        gEngine.Core.startScene(new Scene3);
     } 
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Four))
     {
         gEngine.Core.startScene(new Scene4());
     }
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Five))
+    {
+        gEngine.Core.startScene(new Scene5());
+    }
 };
-
-
 
 
 /******************************************************************************** 
@@ -221,7 +215,6 @@ Scene1.prototype.moveCamera = function ()
            cameraX = this.tileMap.getXPos() + cameraWidth / 2;
        }   
    }
-   
    
    this.mCamera.setWCCenter(cameraX, cameraY);
    this.xPos = cameraX;

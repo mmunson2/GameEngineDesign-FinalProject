@@ -1,14 +1,14 @@
 /******************************************************************************** 
  * 
  ********************************************************************************/
-function Scene2()
+function Scene5()
 {
     this.mCamera = null;
-
-    // sprite sheet and uv coords of its constents
-    this.spriteSheet = "assets/terrain_tileset.png";
-    this.heroSpriteSheet = "assets/SpriteSheet.png";
-    this.darkStoneUV = [(97 + 32) / 256, (127 + 32) / 256, 0 / 128, 31 / 128];
+       
+    this.mossyCobblestone = "assets/blocks/cobblestone_mossy.png";
+    this.mobspawner = "assets/blocks/mob_spawner.png";
+    this.dispenser = "assets/blocks/dispenser_front_horizontal.png";
+    this.defaultUV = [0,1,0,1];
 
     this.tileMap = null;
         
@@ -19,118 +19,114 @@ function Scene2()
     
     this.xPos = 0;
     this.yPos = 0;
-
-    this.background = new CaveBackground();
-    
 }
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.initialize = function ()
+Scene5.prototype.initialize = function ()
 {};
 
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.loadScene = function ()
+Scene5.prototype.loadScene = function ()
 {
-    gEngine.Textures.loadTexture(this.spriteSheet);
+    gEngine.Textures.loadTexture(this.mossyCobblestone);
+    gEngine.Textures.loadTexture(this.mobspawner);
+    gEngine.Textures.loadTexture(this.dispenser);
     
-    gEngine.Textures.loadTexture(this.heroSpriteSheet);
-    
-    this.background.loadTextures();
-    
+        
     this.mCamera = new Camera(
-        vec2.fromValues(0, 15), // position of the camera
+        vec2.fromValues(0, 0), // position of the camera
         100,                   // width of camera
         [0, 0, 1000, 500]       // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
+    this.mCamera.setBackgroundColor([0, 0.4, 0, 1]);
     this.mCamera.configInterpolation(1, 1);
-    
-    this.background.setWidth(this.mCamera.getWCWidth());
-    this.background.setHeight(this.mCamera.getWCHeight());
-        
-    this.background.initialize();
-    
+       
     this.generateTerrain();
-    
-    //Set up Collisions for top and bottom of the cave
-    this.bottomArray = this.terrainGen.getSurfaceCollision();
-    this.topArray = this.terrainGen.getSurfaceCollision(true);
-    
-    this.collisionArray = this.bottomArray.concat(this.topArray);
-    
-    this.hero = new Hero(this.heroSpriteSheet);
-    
+    this.tileBackground();
 };
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.generateTerrain = function ()
+Scene5.prototype.generateTerrain = function ()
 {
-    this.tileMap = new TileMap(-50, -25, 2, 300, 50);
-   
+    this.tileMap = new TileMap(-50, -25, 2, 100, 100);
+    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
     this.terrainGen.generateFlat(0, 6);
-    this.terrainGen.generateBumps(4);
     
-    this.terrainGen.generateBumps(34);
-    this.terrainGen.generateFlat(34, 40);
-    
-    this.terrainGen.setTexture(0, 300, this.spriteSheet, this.darkStoneUV);
+    this.terrainGen.generateHills(6, 0.1, 10, 100);
+        
+    this.terrainGen.setTexture(0, 100, this.mossyCobblestone, this.defaultUV);
+
+    this.terrainGen.generateTrees(10, 20, 0.1, null, [0,0,0,0], this.mobspawner, this.defaultUV);
+   
+    this.terrainGen.generateTrees(4, 4, 0.05, this.dispenser, this.defaultUV, null, this.defaultUV);
+  
 };
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.unloadScene = function ()
+Scene5.prototype.unloadScene = function ()
 {
-    this.background.unloadTextures();
-    gEngine.Textures.unloadTexture(this.spriteSheet);
-    gEngine.Textures.unloadTexture(this.heroSpriteSheet);
+    gEngine.Textures.unloadTexture(this.mossyCobblestone);
+    gEngine.Textures.loadTexture(this.mobspawner);
+    gEngine.Textures.loadTexture(this.dispenser);
 };
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.draw = function ()
+Scene5.prototype.draw = function ()
 {
    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
 
     this.mCamera.setupViewProjection();
-    
-    this.background.draw(this.mCamera);
-
- 
+     
     this.tileMap.draw(this.mCamera); 
-    
-    this.hero.draw(this.mCamera);
 };
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.update = function ()
+Scene5.prototype.tileBackground = function ()
 {
-    this.background.update(this.xPos, this.yPos);
-    
+    for(var i = 0; i < this.tileMap.width; i++)
+    {
+        for(var j = 0; j < this.tileMap.width; j++)
+        {
+            if(!this.tileMap.isTileAt(i, j))
+            {
+                var renderable = new Renderable();
+                renderable.setColor([0.1, j / 200, 0.1, 1]);
+
+                this.tileMap.addTile(i, j, renderable);
+            }
+        }
+    }
+};
+
+/******************************************************************************** 
+ * 
+ ********************************************************************************/
+Scene5.prototype.update = function ()
+{    
     this.moveCamera();
-     
-    this.hero.update(this.mCamera, this.collisionArray);
     
     this.sceneSwitch();
-      
 };
 
 /******************************************************************************** 
  * 
  ********************************************************************************/
-Scene2.prototype.sceneSwitch = function ()
+Scene5.prototype.sceneSwitch = function ()
 {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
     {
@@ -154,11 +150,10 @@ Scene2.prototype.sceneSwitch = function ()
     }
 };
 
-
 /******************************************************************************** 
  * moveCamera
  ********************************************************************************/
-Scene2.prototype.moveCamera = function ()
+Scene5.prototype.moveCamera = function ()
 {
    var cameraX = this.mCamera.getWCCenter()[0];
    var cameraY = this.mCamera.getWCCenter()[1];
@@ -167,11 +162,11 @@ Scene2.prototype.moveCamera = function ()
     
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W))
    {
-       //cameraY += this.cameraSpeed;
+       cameraY += this.cameraSpeed;
    }
    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S))
    {
-       //cameraY -= this.cameraSpeed;
+       cameraY -= this.cameraSpeed;
    }
    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A))
    {
@@ -181,7 +176,7 @@ Scene2.prototype.moveCamera = function ()
    {
        cameraX += this.cameraSpeed;
    }
-      
+   
    if(this.boundedCamera)
    {
        if(cameraY + cameraHeight / 2 > this.tileMap.getYPos() + this.tileMap.getWCHeight())
@@ -208,5 +203,9 @@ Scene2.prototype.moveCamera = function ()
    this.yPos = cameraY;
    this.mCamera.update(); 
 };
+
+
+
+
 
 
