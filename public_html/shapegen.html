@@ -49,6 +49,37 @@
 	</p>
         
         <!-- The main text boxes -->
+        <h2 class = "text"> Description </h2>
+        <p class = "text">
+            
+            ShapeGen is intended to separate the geometric tile math from the 
+            terrain generation logic. Three shapes are currently implemented; 
+            rectangles, triangles, and circles. This may seem bare bones but we 
+            were surprised by the amount of realistic terrain we could make with 
+            rectangles and circles alone.
+
+            ShapeGen handles renderable creation, and provides two options for 
+            the types of renderables created. A simple renderable can be used, 
+            and only a color array is required to make the shape. Alternatively, 
+            a texture and UV array can be passed to make a SpriteRenderable. 
+            Textures should be loaded in the main game class before drawing any 
+            shapes. The UV coordinate array is our method of reducing the size 
+            and complexity of our function signatures. It follows the form:
+
+            [ Left_Bound,  Right_Bound,  Bottom_Bound,  Top_Bound ]
+
+            Where each bound is the UV coordinate of the sprite you would like to
+            draw. If you want to use the entirety of a texture rather than part 
+            of a sprite sheet, simply use the array:
+
+            [0, 1, 0, 1].
+
+            Otherwise, use the fraction of the pixel coordinate of your desired 
+            bound divided by the respective length or width of the sprite sheet.
+            
+        </p>
+
+        
         <h2 class = "text"> Constructor </h2>
         <p class = "text">
             

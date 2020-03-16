@@ -233,33 +233,11 @@ TerrainGenerator.prototype.generateTrees = function (minHeight, maxHeight, frequ
     }
 };
 
-
-/////////////////////////////////////////////////////////////////////////////////
-// Private Methods:
-/////////////////////////////////////////////////////////////////////////////////
-
-
-
 /******************************************************************************** 
- * generateBumps (Private overlaod)
+ * getSurfaceCollision
  * 
- * The user is not intended to change the X positions within a Terrain
- * Generator Object, create a new TerrainGenerator instead!
- * 
- * @param {Integer} startX | The left bound of the bump generation 
- * @param {Integer} endX   | The right bound of the bump generation
- * @param {Integer} yLevel | The tile Y position where the bumps will center
  * 
  ********************************************************************************/
-TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
-{    
-    for(var i = startX; i < endX; i++)
-    {
-        //this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
-        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, 5, [0.2, 1, 0.2, 1], true);
-    }
-};
-
 TerrainGenerator.prototype.getSurfaceCollision = function ( flip )
 {
     collisionArray = [];
@@ -306,4 +284,31 @@ TerrainGenerator.prototype.getSurfaceCollision = function ( flip )
     
     
     return collisionArray;
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// Private Methods:
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
+/******************************************************************************** 
+ * generateBumps (Private overlaod)
+ * 
+ * The user is not intended to change the X positions within a Terrain
+ * Generator Object, create a new TerrainGenerator instead!
+ * 
+ * @param {Integer} startX | The left bound of the bump generation 
+ * @param {Integer} endX   | The right bound of the bump generation
+ * @param {Integer} yLevel | The tile Y position where the bumps will center
+ * 
+ ********************************************************************************/
+TerrainGenerator.prototype._generateBumps = function (startX, endX, yLevel)
+{    
+    for(var i = startX; i < endX; i++)
+    {
+        //this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, Math.round(Math.random() * 3) + 2, [0.2, 1, 0.2, 1], true);
+        this.shapeGen.circle(i, Math.round(Math.random() * 8 - 4) + yLevel, 5, [0.2, 1, 0.2, 1], true);
+    }
 };

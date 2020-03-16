@@ -177,11 +177,23 @@ TileMap.prototype.isTileAt = function (xPos, yPos)
     return false;
 };
 
+
+/******************************************************************************** 
+ * getBounds
+ * 
+ * Returns the bounding box of a given tile as an array of world coordinates
+ * 
+ * @param {Integer} xPos | The column to check for a tile
+ * @param {Integer} yPos | The row to check for a tile
+ * 
+ * @returns {Vec4} [TopBound, BottomBound, LeftBound, RightBound], 
+ *                  null if not found
+ *  ********************************************************************************/
 TileMap.prototype.getBounds = function (xPos, yPos)
 {
     if(xPos >= 0 && xPos < this.width && yPos >= 0 && yPos < this.height)
     {
-        var leftBound = this.xPos + this.tileWidth * xPos
+        var leftBound = this.xPos + this.tileWidth * xPos;
         var rightBound = this.xPos + this.tileWidth * xPos + this.tileWidth;
         
         var topBound = this.yPos + this.tileWidth * yPos + this.tileWidth;

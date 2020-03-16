@@ -49,6 +49,59 @@
 	</p>
         
         <!-- The main text boxes -->
+         <h2 class = "text"> Description </h2>
+        <p class = "text">
+            
+            Here's what you came here for - the terrain generator itself. Our 
+            focus on simplicity means that this generator uses no advanced noise 
+            algorithms or calculus, just a random number generator and a lot of 
+            circles. You may notice that there are no setters for X positions 
+            outside of the constructor. This is an intentional design choice, 
+            as we didn't want to overcomplicate our function signatures. If you 
+            want to make different terrain features on the X axis, make a second 
+            terrain generator and set its x range accordingly.
+
+            The first set of functions to call are those that create a foundation 
+            for your world. generateFlat(), generateBumps(), and generateHills() 
+            create features at the Y coordinates you specify. These features will 
+            appear as simple green renderables - this is another intentional 
+            design choice. Because a variety of textures may be applied to the 
+            ground (bedrock, stone, etc), we felt that texturing should be 
+            applied after the basic shapes are defined. This is completed with 
+            setTexture(), which can apply a texture to a range of Y coordinates.
+
+            But what if I don't want rectangular boundaries between my stone and 
+            dirt layers? This is where addTopTiles() comes into play. You can 
+            imagine this function as raining a layer of blocks down on your 
+            terrain. Placed into a for loop this will layer as much dirt on top 
+            of stone as you'd like. You can use the yMin and yMax to only a 
+            texture on a certain Y coordinate. This is how we apply snowy grass
+            to the top of mountains and regular grass to the valleys in Scene1.
+
+            Finally, you can apply ground scatter with generateTrees(). The 
+            height range and texture allow for a wide range of trees to be 
+            created. The woodTexture and leafTexture can also be set to null, 
+            allowing for cactuses, cobblestone walls, floating orbs, or anything 
+            else you can imagine. Flowers and grass textures can be applied by 
+            setting the tree height to 1 and setting the leaf texture to null. 
+
+            While we attempted to make our tree generation as versatile as 
+            possible, we recognize that it can't create everything. That's where 
+            you come in! The addTree and generateTrees functions can easily be 
+            copied and modified to generate any shape desired. Try making a 
+            pyramid or house and scattering them all over the map! 
+
+            Finally, the getSurfaceCollision function can be used to efficiently 
+            retrieve an array of collision boundaries from the surface of your 
+            world. This is much more efficient than checking every block, but 
+            if your game implements block addition or removal, this method will 
+            need to be modified.
+
+        </p>
+        
+        
+        
+        
         <h2 class = "text"> Constructor </h2>
         <p class = "text">
             
