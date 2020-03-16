@@ -49,6 +49,37 @@
 	</p>
         
         <!-- The main text boxes -->
+        <h2 class = "text"> Description </h2>
+        <p class = "text">
+            
+            The TileMap is essentially a 2D array of Renderables. 
+            You can place the TileMap at any world coordinate, and its 
+            length and width can be any arbitrary number of tiles. 
+            The side length of tiles within the map can also be adjusted 
+            to make the entire structure bigger or smaller. 
+
+            Once the TileMap is created, we attempt to use tile coordinates 
+            as much as possible to avoid confusion. Tile coordinates must be 
+            integers between 0 and the tileMap's width or height minus one. 
+
+            When creating a tile you must pass in a renderable that has been 
+            initialized with new. We chose this framework so that any texture 
+            could be used, from simple colors to animated sprites. 
+            Unfortunately this required a large number of calls to 'new' 
+            which isn't ideal for real-time terrain generation. We did a 
+            great deal of optimization in the the draw() function so that 
+            only the visible tiles are drawn.
+
+            The tileMap provides support for collision detection with getBounds, 
+            which returns the bounding box for a given tile. We don't recommend 
+            checking the collision for every tile in the map. TerrainGenerator 
+            provides a function for optimized collision checking which only 
+            returns the collision bounds of the surface tiles.
+            
+        </p>
+        
+        
+        
         <h2 class = "text"> Constructor </h2>
         <p class = "text">
             
