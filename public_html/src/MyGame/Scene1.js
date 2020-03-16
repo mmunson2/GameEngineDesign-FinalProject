@@ -1,11 +1,13 @@
 /******************************************************************************** 
+ * Scene1.js
  * 
+ * The goal of our TerrainGenerator - create world similar to what we've
+ * all experienced in Minecraft and Terraria! A world featuring snowy mountains
+ * and forested plains.
  ********************************************************************************/
 function Scene1()
 {
     this.mCamera = null;
-
-    // sprite sheet and uv coords of its constants
     
     this.stone = "assets/stone.png";
     this.dirt = "assets/dirt.png";
@@ -32,17 +34,22 @@ function Scene1()
 }
 
 /******************************************************************************** 
+ * initialize
  * 
+ * Nothing to see here! Our engine throws an error if this isn't included :(
  ********************************************************************************/
 Scene1.prototype.initialize = function ()
 {};
 
 
 /******************************************************************************** 
+ * loadScene
+ * 
  * 
  ********************************************************************************/
 Scene1.prototype.loadScene = function ()
 {
+    //Load in textures
     gEngine.Textures.loadTexture(this.stone);
     gEngine.Textures.loadTexture(this.dirt);
     gEngine.Textures.loadTexture(this.grass);
@@ -52,8 +59,10 @@ Scene1.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.bedrock);
     gEngine.Textures.loadTexture(this.snowDirt);
     
+    //Load parallax background
     this.background.loadTextures();
     
+    //Initialize the camera
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
         100,                   // width of camera
@@ -73,7 +82,7 @@ Scene1.prototype.loadScene = function ()
 };
 
 /******************************************************************************** 
- * 
+ * generateTerrain
  ********************************************************************************/
 Scene1.prototype.generateTerrain = function ()
 {
@@ -99,7 +108,7 @@ Scene1.prototype.generateTerrain = function ()
 };
 
 /******************************************************************************** 
- * 
+ * unloadScene
  ********************************************************************************/
 Scene1.prototype.unloadScene = function ()
 {
@@ -115,7 +124,7 @@ Scene1.prototype.unloadScene = function ()
 };
 
 /******************************************************************************** 
- * 
+ * draw
  ********************************************************************************/
 Scene1.prototype.draw = function ()
 {
@@ -130,7 +139,7 @@ Scene1.prototype.draw = function ()
 };
 
 /******************************************************************************** 
- * 
+ * update
  ********************************************************************************/
 Scene1.prototype.update = function ()
 {
@@ -142,7 +151,7 @@ Scene1.prototype.update = function ()
 };
 
 /******************************************************************************** 
- * 
+ * sceneSwitch
  ********************************************************************************/
 Scene1.prototype.sceneSwitch = function ()
 {

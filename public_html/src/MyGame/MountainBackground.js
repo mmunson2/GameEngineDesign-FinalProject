@@ -131,18 +131,6 @@ MountainBackground.prototype.draw = function ( camera )
     this._wrapTexture(camera, this.trees2);
     
     this._wrapTexture(camera, this.trees1);
-   
-    
-    
-    
-    
-    //this._wrapTexture(camera, this.mountain);
-    
-    //this._wrapTexture(camera, this.mountains);
-    
-    //this._wrapTexture(camera, this.trees1);
-    
-    //this._wrapTexture(camera, this.trees2);
 };
 
 /******************************************************************************** 
