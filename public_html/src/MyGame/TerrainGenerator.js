@@ -113,18 +113,24 @@ TerrainGenerator.prototype.setTexture = function ( startY, endY, texture, UVArra
  * 
  * @param {Texture} texture | The texture to be applied
  * @param {Vec4}    UVArray | The UV coordinates of the texture
+ * @param {Integer} yMin    | The minimum height top tiles will be added
+ * @param {Integer} yMax    | The maximum height top tiles will be added
  * @param {Boolean} flip    | Enable to make the tiles "fall upwards"
  * 
  ********************************************************************************/
-TerrainGenerator.prototype.addTopTiles = function (texture, UVArray, flip)
+TerrainGenerator.prototype.addTopTiles = function (texture, UVArray, yMin, yMax, flip)
 {
+    var minHeight = (yMin >= 0 && yMin < this.tileMap.getHeight()) ? yMin : 0;
+    var maxHeight = (yMax >= 0 && yMax < this.tileMap.getHeight()) ? yMax : this.tileMap.getHeight() - 1;
+ 
+    
     if(flip === true)
     {
         for (var x = 0; x < this.tileMap.getWidth(); x++)
         {
-            for (var y = this.tileMap.getHeight() - 1; y >= 0 ; y--)
+            for (var y = maxHeight - 1; y >= minHeight  ; y--)
             {
-                if (!this.tileMap.isTileAt(x, y))
+                if (!this.tileMap.isTileAt(x, y) && this.tileMap.isTileAt(x, y + 1))
                 {
                     var renderable = new SpriteRenderable(texture);
                     renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
@@ -138,9 +144,9 @@ TerrainGenerator.prototype.addTopTiles = function (texture, UVArray, flip)
     {
         for (var x = 0; x < this.tileMap.getWidth(); x++)
         {
-            for (var y = 0; y < this.tileMap.getHeight(); y++)
+            for (var y = minHeight + 1; y <= maxHeight; y++)
             {
-                if (!this.tileMap.isTileAt(x, y))
+                if (!this.tileMap.isTileAt(x, y) && this.tileMap.isTileAt(x, y - 1))
                 {
                     var renderable = new SpriteRenderable(texture);
                     renderable.setElementUVCoordinate(UVArray[0], UVArray[1], UVArray[2], UVArray[3]);
@@ -170,16 +176,21 @@ TerrainGenerator.prototype.addTree = function (x, y, height, woodTexture, woodUV
 {
     if (y + height > this.tileMap.getHeight()) return;
     
-    for (var i = y; i < y + height - 2; i++)
+    if(woodTexture !== null)
     {
-        var renderable = new SpriteRenderable(woodTexture);
-        renderable.setElementUVCoordinate(woodUV[0], woodUV[1], woodUV[2], woodUV[3]);
-        this.tileMap.addTile(x, i, renderable);
+        for (var i = y; i < y + height - 2; i++)
+        {
+            var renderable = new SpriteRenderable(woodTexture);
+            renderable.setElementUVCoordinate(woodUV[0], woodUV[1], woodUV[2], woodUV[3]);
+            this.tileMap.addTile(x, i, renderable);
+        }
     }
     
     //this.shapeGen.texturedRectangle(x - 1, y + height - 2, 3, 3, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV);
     //this.shapeGen.texturedTriangle(x - 2, y + height - 2, 5, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV);
-    this.shapeGen.texturedCircle(x, y + height - 2, 2, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV, true);
+    
+    if(leafTexture !== null)
+        this.shapeGen.texturedCircle(x, y + height - 2, 2, leafTexture, [0.42, 0.67, 0.26, 0.8], leafUV, true);
     //ShapeGen.prototype.texturedCircle = function (xc, yc, r, texture, color, UVArray, fill)
 };
 

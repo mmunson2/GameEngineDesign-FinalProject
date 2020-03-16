@@ -1,7 +1,7 @@
 
 
 
-function Scene1()
+function Scene4()
 {
     this.mCamera = null;
 
@@ -43,17 +43,13 @@ function Scene1()
     
     this.xPos = 0;
     this.yPos = 0;
-
-    this.background = new MountainBackground();
-    
-    this.scene2 = null;
 }
 
-Scene1.prototype.initialize = function ()
+Scene4.prototype.initialize = function ()
 {};
 
 
-Scene1.prototype.loadScene = function ()
+Scene4.prototype.loadScene = function ()
 {
     gEngine.Textures.loadTexture(this.spriteSheet);
     gEngine.Textures.loadTexture(this.stone);
@@ -70,9 +66,7 @@ Scene1.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.mossyCobblestone);
     gEngine.Textures.loadTexture(this.cactus);
     gEngine.Textures.loadTexture(this.sand);
-    
-    this.background.loadTextures();
-    
+        
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
         100,                   // width of camera
@@ -81,38 +75,29 @@ Scene1.prototype.loadScene = function ()
     this.mCamera.setBackgroundColor([0.8, 0.1, 0.8, 1]);
     this.mCamera.configInterpolation(1, 1);
     
-    this.background.setWidth(this.mCamera.getWCWidth());
-    this.background.setHeight(this.mCamera.getWCHeight());
+    this.tileMap = new TileMap(-50, -25, 2, 100, 100);
     
-    this.tileMap = new TileMap(-50, -25, 2, 300, 300);
    
     this.terrainGen = new TerrainGenerator(this.tileMap, 0, this.tileMap.getWidth());
     
     this.terrainGen.generateFlat(0, 6);
-    this.terrainGen.generateBumps(4);
-    
-    this.terrainGen.generateHills(6, 0.01, 120, 2);
-    
+    this.terrainGen.generateBumps(1);
+        
     this.terrainGen.setTexture(0, 300, this.stone, this.defaultUV);
     
     for (var i = 0; i < 7; i++)
     {
-        this.terrainGen.addTopTiles(this.dirt, this.defaultUV);
+        this.terrainGen.addTopTiles(this.sand, this.defaultUV);
     }
+   
+    this.terrainGen.generateTrees(5, 8, 0.03, this.cactus, [1,0,1,0], null, [0,0,0,0]);
+       
+    this.tileBackground();
     
-    this.terrainGen.addTopTiles(this.grass, this.defaultUV, 0, 74, false);
-    this.terrainGen.addTopTiles(this.snowDirt, this.defaultUV, 75, this.tileMap.getHeight() - 1, false);
-    
-    this.terrainGen.generateTrees(5, 15, 0.05, this.wood, [1,0,1,0], this.leaves, [1,0,1,0]);
-        
-    this.background.initialize();
-    
-    this.scene2 = new Scene2();
 };
 
-Scene1.prototype.unloadScene = function ()
+Scene4.prototype.unloadScene = function ()
 {
-    this.background.unloadTextures();
     gEngine.Textures.unloadTexture(this.spriteSheet);
     gEngine.Textures.unloadTexture(this.stone);
     gEngine.Textures.unloadTexture(this.dirt);
@@ -131,28 +116,40 @@ Scene1.prototype.unloadScene = function ()
 };
 
 
-Scene1.prototype.draw = function ()
+Scene4.prototype.draw = function ()
 {
    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
 
     this.mCamera.setupViewProjection();
-    
-    this.background.draw(this.mCamera);
-
- 
+     
     this.tileMap.draw(this.mCamera); 
 };
 
-Scene1.prototype.update = function ()
+Scene4.prototype.tileBackground = function ()
 {
-    this.background.update(this.xPos, this.yPos);
-    
+    for(var i = 0; i < this.tileMap.width; i++)
+    {
+        for(var j = 0; j < this.tileMap.width; j++)
+        {
+            if(!this.tileMap.isTileAt(i, j))
+            {
+                var renderable = new Renderable();
+                renderable.setColor([1 - (j + 20) / this.tileMap.getHeight(), 0.1, (j + 20) / this.tileMap.getHeight(), 1]);
+
+                this.tileMap.addTile(i, j, renderable);
+            }
+        }
+    }
+};
+
+Scene4.prototype.update = function ()
+{    
     this.moveCamera();
     
     this.sceneSwitch();
 };
 
-Scene1.prototype.sceneSwitch = function ()
+Scene4.prototype.sceneSwitch = function ()
 {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One))
     {
@@ -164,12 +161,8 @@ Scene1.prototype.sceneSwitch = function ()
     } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three))
     {
-        gEngine.Core.startScene(new Scene3());
+        gEngine.Core.startScene(new Scene3);
     } 
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Four))
-    {
-        gEngine.Core.startScene(new Scene4());
-    }
 };
 
 
@@ -178,7 +171,7 @@ Scene1.prototype.sceneSwitch = function ()
 /******************************************************************************** 
  * moveCamera
  ********************************************************************************/
-Scene1.prototype.moveCamera = function ()
+Scene4.prototype.moveCamera = function ()
 {
    var cameraX = this.mCamera.getWCCenter()[0];
    var cameraY = this.mCamera.getWCCenter()[1];

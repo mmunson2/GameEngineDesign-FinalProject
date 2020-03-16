@@ -15,9 +15,22 @@ function Scene3()
     
     this.stone = "assets/stone.png";
     this.dirt = "assets/dirt.png";
+    this.snowDirt = "assets/blocks/grass_side_snowed.png";
+    this.snow = "assets/blocks/snow.png";
     this.grass = "assets/grass.png";
     this.wood = "assets/wood.png";
     this.leaves = "assets/leaves.png";
+    
+    this.bedrock = "assets/blocks/bedrock.png";
+    this.coal = "assets/blocks/coal_block.png";
+    this.cobblestone = "assets/blocks/cobblestone.png";
+    this.mossyCobblestone = "assets/blocks/cobblestone_mossy.png";
+    this.cactus = "assets/blocks/cactus_side.png";
+    this.sand = "assets/blocks/sand.png";
+    this.snowDirt = "assets/blocks/grass_side_snowed.png";
+    this.snow = "assets/blocks/snow.png";
+   
+    
     this.defaultUV = [0,1,0,1];
 
     this.tileMap = null;
@@ -53,6 +66,15 @@ Scene3.prototype.loadScene = function ()
     gEngine.Textures.loadTexture(this.wood);
     gEngine.Textures.loadTexture(this.leaves);
     
+    gEngine.Textures.loadTexture(this.bedrock);
+    gEngine.Textures.loadTexture(this.coal);
+    gEngine.Textures.loadTexture(this.snowDirt);
+    gEngine.Textures.loadTexture(this.snow);
+    gEngine.Textures.loadTexture(this.cobblestone);
+    gEngine.Textures.loadTexture(this.mossyCobblestone);
+    gEngine.Textures.loadTexture(this.cactus);
+    gEngine.Textures.loadTexture(this.sand);
+    
     this.background.loadTextures();
     
     this.mCamera = new Camera(
@@ -84,6 +106,15 @@ Scene3.prototype.unloadScene = function ()
     gEngine.Textures.unloadTexture(this.grass);
     gEngine.Textures.unloadTexture(this.wood);
     gEngine.Textures.unloadTexture(this.leaves);
+    
+    gEngine.Textures.unloadTexture(this.bedrock);
+    gEngine.Textures.unloadTexture(this.coal);
+    gEngine.Textures.unloadTexture(this.snowDirt);
+    gEngine.Textures.unloadTexture(this.snow);
+    gEngine.Textures.unloadTexture(this.cobblestone);
+    gEngine.Textures.unloadTexture(this.mossyCobblestone);
+    gEngine.Textures.unloadTexture(this.cactus);
+    gEngine.Textures.unloadTexture(this.sand);
 };
 
 
@@ -172,7 +203,7 @@ Scene3.prototype.sceneSwitch = function ()
     {
         gEngine.Core.startScene(new Scene3);
     } 
-}
+};
 
 /******************************************************************************** 
  * moveCamera

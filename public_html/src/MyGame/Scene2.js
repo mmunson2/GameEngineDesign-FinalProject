@@ -80,8 +80,6 @@ Scene2.prototype.loadScene = function ()
     
     this.terrainGen.setTexture(0, 300, this.spriteSheet, this.darkStoneUV);
     
-    this.terrainGen.addTopTiles(this.stone, this.defaultUV, true);
-    
         
     this.background.initialize();
     
@@ -149,7 +147,7 @@ Scene2.prototype.sceneSwitch = function ()
     {
         gEngine.Core.startScene(new Scene3);
     } 
-}
+};
 
 
 /******************************************************************************** 
