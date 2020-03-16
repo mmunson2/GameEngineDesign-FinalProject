@@ -49,24 +49,87 @@
 	</p>
         
         <!-- The main text boxes -->
+        <h2 class = "text"> The Cottage Lake Terrain Generator: </h2>
+        <h2 class = "text"> Authors: Camden Brewster and Matthew Munson </h2>
+        <p class = "text">
+            
+            This project was created during Spring Quarter of the  2019-2020 
+            academic year at the University of Washington Bothell. It's built 
+            on a game engine used in Professor Kelvin Sung's CSS-452 Game Engine
+            Development course, and is primarily written in javascript. 
+            The code for this project is completely open source but the art is 
+            not our own. Artists are cited where possible, and textures 
+            borrowed from Minecraft are under Fair Use. 
+
+            What is this terrain generator for? 
+
+            The user should note that this terrain generator is not optimized 
+            for real-time generation, and it may lack some of the features 
+            provided by the generators used in Terraria and Minecraft. However, 
+            the simplicity of our three-class generator makes it suitable 
+            for the following uses:
+
+            • Generating terrain, then modifying it for use in a game with 
+                a static world
+                
+            • Featuring simple terrain generation in a technical demo
+            
+            • Learning about the inner-workings of a terrain generator 
+               and modifying our code for your own purposes.
+
+            Listed below are the descriptions for the three javascript classes 
+            included in our API. Detailed documentation is available for each 
+            function, and tutorials and demos are provided to get you started.
+            
+        </p>
+        
+        
         <h2 class = "text"> TileMap </h2>
         <p class = "text">
             
-            some text
+            This class creates a grid of tiles on which textures can be placed. 
+            This is the foundation for a game like Terraria, as blocks can be 
+            placed or removed from any part of the map. The TileMap allows for 
+            adding and removing tiles, and also includes a tool for optimized 
+            collision detection. Users who wish to modify terrain in real time 
+            can connect the TileMap to their user interface for easy editing.
             
         </p>
             
         <h2 class = "text"> ShapeGen </h2>
         <p class = "text">
             
-            some text
+            This class provides tools for drawing tiled shapes. It can be used 
+            as a stand-alone class for drawing on a tileMap, but its main 
+            purpose is to serve as an intermediary between the terrain generation 
+            logic and the tile map. Rectangles, triangles, and circles are 
+            supported, and shapes can be drawn with simple colors or textures. 
+            We recommend that anyone looking to modify the terrain generator 
+            start by drawing a few shapes with ShapeGen. 
             
         </p>
             
         <h2 class = "text"> TerrainGenerator </h2>
         <p class = "text">
             
-            some text
+            This class provides the tools and logic to generate realistic 
+            terrain. We intentionally chose a small but versatile set of 
+            functions that make it easy to start creating worlds while not 
+            imposing restrictions on creativity. The Terrain Generator's 
+            functions can be broken up into the following categories:
+
+            • Laying the Foundation: Generate flat, bumpy, or hilly 
+                terrain at any Y-coordinate.
+
+            • Painting the world: Apply textures to ranges of Y 
+            coordinates or layer on textures as if raining from the sky.
+
+            • Add the details: Use a versatile "tree" creator to place 
+            ground scatter on the surface of the world.
+
+            The TerrainGenerator is designed to be as simple as possible and 
+            easy to modify. We suggest that users start with the addTree 
+            function, as this can be tweaked to create any shape desired. 
             
         </p>
             
