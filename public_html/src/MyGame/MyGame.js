@@ -1,5 +1,9 @@
-
-
+/******************************************************************************** 
+ * MyGame.js
+ * 
+ * The Main function that starts Scene1, the code you seek is there!
+ * 
+ ********************************************************************************/
 function MyGame()
 {
     this.mCamera = null;
