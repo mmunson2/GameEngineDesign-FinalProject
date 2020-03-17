@@ -24,6 +24,8 @@ function MountainBackground(xPos, yPos, width, height)
     this.mountains2Texture = "assets/background/mountains2.png";
     this.trees1Texture = "assets/background/trees1.png";
     this.trees2Texture = "assets/background/trees2.png";
+    this.rectangle = null;
+    
 }
 
 MountainBackground.prototype.setXPos = function (xPos) {this.xPos = xPos;};
@@ -109,6 +111,12 @@ MountainBackground.prototype.initialize = function ()
     this.trees2.getXform().setHeight(100 / 2 + 5);
     this.trees2.getXform().setWidth(200 / 2 + 5);
     
+    this.rectangle = new Renderable();
+    this.rectangle.setColor([59/255, 79/255, 97/255, 1]);
+    this.rectangle.getXform().setPosition(0,20);
+    this.rectangle.getXform().setHeight(14);
+    this.rectangle.getXform().setWidth(200 / 2 + 5);
+    
     
     
 };
@@ -131,6 +139,8 @@ MountainBackground.prototype.draw = function ( camera )
     this._wrapTexture(camera, this.trees2);
     
     this._wrapTexture(camera, this.trees1);
+    
+    this._wrapTexture(camera, this.rectangle);
 };
 
 /******************************************************************************** 
@@ -196,4 +206,6 @@ MountainBackground.prototype.update = function (xPos, yPos)
     this.trees1.getXform().setPosition(this.xPos / 1.18, this.yPos / 2 + 13);
     
     this.trees2.getXform().setPosition(this.xPos / 1.12, this.yPos / 1.4 + 14);
+    
+    this.rectangle.getXform().setPosition(this.xPos / 1.18, (this.yPos / 2 - 20));
 };
