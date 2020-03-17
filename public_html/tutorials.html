@@ -49,26 +49,221 @@
 	</p>
         
         <!-- The main text boxes -->
-        <h2 class = "text"> one </h2>
-        <p class = "text">
+        <h2 class = "text"> Tutorial 1: Setting Up Your Terrain Generator </h2>
+        <div class = "tutorial">
             
-            some text
+        Our terrain generator only needs a few calls to get started, here's the basics!
+        <br> <br>
+        
+        Create a tileMap:
+        <br> <br>
+        
+        In your MyGame constructor, make a tileMap instance variable and set it to null:
+        <br> <br>
+        
+        <div class="code">
             
-        </p>
+            this.tileMap = null;
+        
+        </div>
+        <br>
+        
+        In your MyGame initialize, instantiate your camera as follows:
+        <br> <br>
+        
+        Note: This can be adjusted to your liking, but this setup guarantees that your tileMap will show up on screen!
+        <br> <br>
+        
+        <div class ="code">
             
-        <h2 class = "text"> two </h2>
-        <p class = "text">
+            this.mCamera = new Camera( <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; vec2.fromValues(0, 0), // position of the camera <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 100, // width of camera <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; [0, 0, 1800, 900] // viewport (orgX, orgY, width, height) <br>
+            );
+        
+        </div>
+        <br>
+        
+        In your MyGame initialize or loadScene, call the tileMap constructor
+        <br> <br>
+        
+        <div class ="code">
             
-            some text
+            this.tileMap = new TileMap( <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; -50, // XPosition of bottom left corner <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; -25, // YPosition of bottom left corner <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 1, // Tile width in World Coordinates <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 102, // Width in tiles <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 52 // Height in tiles <br>
+            );
+        
+        </div>
+        <br>
+        
+        In your draw method, setup your camera's view projection and draw the tileMap:
+        <br> <br>
+        
+        <div class ="code">
             
-        </p>
+            gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); <br>
+            this.mCamera.setupViewProjection(); <br>
+            this.tileMap.draw(this.mCamera);
+        
+        </div>
+        <br>
+
+        Now you're ready to make a terrain generator!
+        <br> <br>
+        
+        In your MyGame constructor, make a TerrainGenerator instance variable and set it to null.
+        <br> <br>
+        
+        <div class="code">
             
-        <h2 class = "text"> three </h2>
-        <p class = "text">
+            this.terrainGen = null;
+        
+        </div>
+        <br>
+
+        In your MyGame initialize or loadScene, call the TerrainGenerator constructor and make some terrain!
+        <br> <br>
+        
+        <div class="code">
             
-            some text
+            this.terrainGen = new TerrainGenerator( <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; this.tileMap, //The tile map we're generating to <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 0, //The starting tile for generation <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; this.tileMap.getWidth() - 1 //The last tile for generation <br>
+            ); <br> <br>
+
+            this.terrainGen.generateFlat( <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 0, //Y position lower bound <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 6 //Y position upper bound <br>
+            ); <br> <br>
+
+            this.terrainGen.generateBumps(4); //The Y level where terrain is generated <br>
             
-        </p>
+        </div>
+        <br>
+        
+        You should see some green bumpy terrain at the bottom of your window. Change parameters to see what you can make! It isn't much, but creating intricate terrain is only a few steps away now that you have the basics.
+        
+        </div>
+        
+        <!-- Tutorial 2 -->
+        <h2 class = "text"> Tutorial 2: Making An Overworld </h2>
+        <div class = "tutorial">
+        
+        This tutorial assumes you understand how to load textures into the game engine. You can find a number of tile assets within assets/blocks or do a quick Google search for your own. Find textures for stone, dirt, grass, wood, and leaves and load them to the following variables:
+        <br> <br>
+        
+        <div class="code">
+
+            this.stone <br>
+            this.dirt <br>
+            this.grass <br>
+            this.wood <br>
+            this.leaves <br>
+        
+        </div>
+        <br>
+
+        We assume that each texture has its own file with no blank space, making our UV array easy to define with:
+        <br> <br>
+
+        <div class="code">
+            
+            this.defaultUV = [0, 1, 0, 1];
+            
+        </div>
+        <br>
+
+        If you are using a SpriteSheet, you'll need to make UV arrays for each texture.
+        <br> <br>
+
+        All code in this tutorial can be placed in the MyGame initialize method. It may help to create a method for terrain generation, which is what we've done in our example scenes.
+        <br> <br>
+
+        Generating the Foundation:
+        <br> <br>
+
+        We'll first create bumpy terrain with a few tall mountains.
+        <br> <br>
+
+        <div class="code">
+            
+            this.terrainGen.generateFlat(0, 6); <br> <br>
+
+            this.terrainGen.generateBumps(4); <br> <br>
+
+            this.terrainGen.generateHills( <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 6, //Y level where the hills will start <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 0.02, //Frequency of the hills (keep it small!) <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 80, //The scale of the hills, affects height and width <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 2 //The steepness of the hills <br>
+            ); <br>
+            
+        </div>
+        <br>
+
+        Note that you can make the terrain less bumpy by decreasing the yLevel of generateBumps relative to the level of generateFlat.
+        <br> <br>
+
+        This will create the same green renderables you saw in Tutorial 1. We'll now apply a stone texture to all of the created terrain.
+        <br> <br>
+
+        <div class="code">
+            
+            this.terrainGen.setTexture(0, 52, this.stone, this.defaultUV);
+            
+        </div>
+        <br>
+
+        We'll now layer dirt on top of the stone we've created.
+        <br> <br>
+
+        <div class="code">
+            
+            for(var i = 0; i < 7 ; i++) <br>
+            { <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; this.terrainGen.addTopTiles(this.dirt, this.defaultUV); <br>
+            } <br>
+            
+        </div>
+        <br>
+
+        To top off the dirt, we'll add a single layer of grass
+        <br> <br>
+
+        <div class="code">
+            
+            this.terrainGen.addTopTiles(this.grass, this.defaultUV);
+            
+        </div>
+        <br>
+
+        Now we'll add trees to spruce (I'm sorry) up the surface
+        <br> <br>
+
+        <div class="code">
+            
+            this.terrainGen.generateTrees( <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 5, //The minimum height of a tree <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 15, //The maximum height of a tree <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; 0.05, //The tree frequency <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; this.wood, //The trunk texture <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; [1,0,1,0], //The trunk UV array <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; this.leaves, //The leaf texture <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; [1,0,1,0] //The leaf UV array <br>
+            ); <br>
+                                          
+        </div>
+        <br>
+
+        You should now have a grassy overworld with mountains and trees. Play with the parameters and add additional textures to your heart's desire! 
+
+        </div>
             
 </body>
 

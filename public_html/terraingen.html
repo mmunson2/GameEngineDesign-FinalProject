@@ -60,7 +60,7 @@
             as we didn't want to overcomplicate our function signatures. If you 
             want to make different terrain features on the X axis, make a second 
             terrain generator and set its x range accordingly.
-
+            <br> <br>
             The first set of functions to call are those that create a foundation 
             for your world. generateFlat(), generateBumps(), and generateHills() 
             create features at the Y coordinates you specify. These features will 
@@ -69,7 +69,7 @@
             ground (bedrock, stone, etc), we felt that texturing should be 
             applied after the basic shapes are defined. This is completed with 
             setTexture(), which can apply a texture to a range of Y coordinates.
-
+            <br> <br>
             But what if I don't want rectangular boundaries between my stone and 
             dirt layers? This is where addTopTiles() comes into play. You can 
             imagine this function as raining a layer of blocks down on your 
@@ -77,20 +77,20 @@
             of stone as you'd like. You can use the yMin and yMax to only a 
             texture on a certain Y coordinate. This is how we apply snowy grass
             to the top of mountains and regular grass to the valleys in Scene1.
-
+            <br> <br>
             Finally, you can apply ground scatter with generateTrees(). The 
             height range and texture allow for a wide range of trees to be 
             created. The woodTexture and leafTexture can also be set to null, 
             allowing for cactuses, cobblestone walls, floating orbs, or anything 
             else you can imagine. Flowers and grass textures can be applied by 
             setting the tree height to 1 and setting the leaf texture to null. 
-
+            <br> <br>
             While we attempted to make our tree generation as versatile as 
             possible, we recognize that it can't create everything. That's where 
             you come in! The addTree and generateTrees functions can easily be 
             copied and modified to generate any shape desired. Try making a 
             pyramid or house and scattering them all over the map! 
-
+            <br> <br>
             Finally, the getSurfaceCollision function can be used to efficiently 
             retrieve an array of collision boundaries from the surface of your 
             world. This is much more efficient than checking every block, but 
@@ -109,9 +109,9 @@
             
             Constructor that creates a TerrainGenerator object <br> <br>
             
-            <b> tileMap: </b> The TileMap that TerrainGenerator will operate on <br>
-            <b> startX: </b> The tile x to start at <br>
-            <b> endX: </b> The tile x to end at <br>
+            <b> tileMap | </b> <i> TileMap </i> <b> | </b> The TileMap that TerrainGenerator will operate on <br>
+            <b> startX | </b> <i> int </i> <b> | </b> The tile x to start at <br>
+            <b> endX | </b> <i> int </i> <b> | </b> The tile x to end at <br>
             
         </p>
             
@@ -122,18 +122,18 @@
             
             Generates bumpy terrain at given y level <br> <br>
             
-            <b> yLevel: </b> The tile y to generate bumps at
+            <b> yLevel | </b> <i> int </i> <b> | </b> The tile y to generate bumps at
             
         </p>
         <br>
         <p class = "text">
             
-            <b> genrateFlat </b> (startY, endY) <br> <br>
+            <b> generateFlat </b> (startY, endY) <br> <br>
             
             Generates flat terrain between start and end y tile <br> <br>
             
-            <b> startY: </b> The y tile to start at <br>
-            <b> endY: </b> The y tile to end at
+            <b> startY | </b> <i> int </i> <b> | </b> The y tile to start at <br>
+            <b> endY | </b> <i> int </i> <b> | </b> The y tile to end at
             
         </p>
         <br>
@@ -143,10 +143,10 @@
             
             Generates hills at given yLevel <br> <br>
             
-            <b> yLevel: </b> The tile y to generate hills at <br>
-            <b> frequency: </b> The chance of generating a hill <br>
-            <b> scale: </b> Adjusts the overall size of the hills <br>
-            <b> steepness: </b> Adjusts how steep the hills will be
+            <b> yLevel | </b> <i> int </i> <b> | </b> The tile y to generate hills at <br>
+            <b> frequency | </b> <i> float </i> <b> | </b> The chance of generating a hill <br>
+            <b> scale | </b> <i> float </i> <b> | </b> Adjusts the overall size of the hills <br>
+            <b> steepness | </b> <i> float </i> <b> | </b> Adjusts how steep the hills will be
             
         </p>
         <br>
@@ -156,10 +156,10 @@
             
             Sets the texture of all tile between given y tiles <br> <br>
             
-            <b> startY: </b> The y tile to start at <br>
-            <b> endY: </b> The y tile to end at <br>
-            <b> texture: </b> The texture file to use <br>
-            <b> UVArray: </b> The UV coordinates the specify the texture
+            <b> startY | </b> <i> int </i> <b> | </b> The y tile to start at <br>
+            <b> endY | </b> <i> int </i> <b> | </b> The y tile to end at <br>
+            <b> texture | </b> <i> string </i> <b> | </b> The texture file to use <br>
+            <b> UVArray | </b> <i> [float] </i> <b> | </b> The UV coordinates the specify the texture
             
         </p>
         <br>
@@ -169,9 +169,9 @@
             
             Covers the surface of the TileMap with tiles <br> <br>
             
-            <b> texture: </b> The texture file to use <br>
-            <b> UVArray: </b> The UV coordinates the specify the texture <br>
-            <b> flip: </b> If true the tiles will go on the ceiling
+            <b> texture | </b> <i> string </i> <b> | </b> The texture file to use <br>
+            <b> UVArray | </b> <i> [float] </i> <b> | </b> The UV coordinates the specify the texture <br>
+            <b> flip | </b> <i> boolean </i> <b> | </b> If true the tiles will go on the ceiling
             
         </p>
         <br>
@@ -181,13 +181,13 @@
             
             Creates a tree at given x and y tile <br> <br>
             
-            <b> x: </b> The tile x to put the tree at <br>
-            <b> y: </b> The tile y to put the tree at <br>
-            <b> height: </b> The height of the tree <br>
-            <b> woodTexture: </b> The texture file to use for the wood <br>
-            <b> woodUV: </b> The UV coordinates the specify the texture for the wood <br>
-            <b> leafTexture: </b> The texture file to use for the leaf <br>
-            <b> leafUV: </b> The UV coordinates the specify the texture for the leaf
+            <b> x | </b> <i> int </i> <b> | </b> The tile x to put the tree at <br>
+            <b> y | </b> <i> int </i> <b> | </b> The tile y to put the tree at <br>
+            <b> height | </b> <i> int </i> <b> | </b> The height of the tree <br>
+            <b> woodTexture | </b> <i> string </i> <b> | </b> The texture file to use for the wood <br>
+            <b> woodUV | </b> <i> [float] </i> <b> | </b> The UV coordinates the specify the texture for the wood <br>
+            <b> leafTexture | </b> <i> string </i> <b> | </b> The texture file to use for the leaf <br>
+            <b> leafUV | </b> <i> [float] </i> <b> | </b> The UV coordinates the specify the texture for the leaf
             
         </p>
         <br>
@@ -197,13 +197,13 @@
             
             Generates trees across the whole TerrainGenerator <br> <br>
             
-            <b> minHeight: </b> The minimum height of a tree <br>
-            <b> maxHeight: </b> The maximum height of a tree <br>
-            <b> frequency: </b> The chance of generating a tree <br>
-            <b> woodTexture: </b> The texture file to use for the wood <br>
-            <b> woodUV: </b> The UV coordinates the specify the texture for the wood <br>
-            <b> leafTexture: </b> The texture file to use for the leaf <br>
-            <b> leafUV: </b> The UV coordinates the specify the texture for the leaf
+            <b> minHeight | </b> <i> int </i> <b> | </b> The minimum height of a tree <br>
+            <b> maxHeight | </b> <i> int </i> <b> | </b> The maximum height of a tree <br>
+            <b> frequency | </b> <i> float </i> <b> | </b> The chance of generating a tree <br>
+            <b> woodTexture | </b> <i> string </i> <b> | </b> The texture file to use for the wood <br>
+            <b> woodUV | </b> <i> [float] </i> <b> | </b> The UV coordinates the specify the texture for the wood <br>
+            <b> leafTexture | </b> <i> string </i> <b> | </b> The texture file to use for the leaf <br>
+            <b> leafUV | </b> <i> [float] </i> <b> | </b> The UV coordinates the specify the texture for the leaf
             
         </p>
         <br>
@@ -213,9 +213,9 @@
             
             Private helper function that generates bumpy terrain <br> <br>
             
-            <b> startX: </b> The x tile to start at <br>
-            <b> endX: </b> The x tile to stop at <br>
-            <b> yLevel: </b> The tile y to generate bumps at
+            <b> startX | </b> <i> int </i> <b> | </b> The x tile to start at <br>
+            <b> endX | </b> <i> int </i> <b> | </b> The x tile to stop at <br>
+            <b> yLevel | </b> <i> int </i> <b> | </b> The tile y to generate bumps at
             
         </p>
         <br>
